@@ -8,34 +8,34 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.Logger;
 
-import com.company.app.model.Group;
+import com.company.app.model.SchoolGroup;
 import com.company.app.model.Student;
 
 
 @Stateless
-public class GroupDAO {
+public class SchoolGroupDAO {
   @SuppressWarnings("unused")
   private static final Logger LOGGER = Logger.getLogger(TeacherDAO.class); 
   
-  private DAO<Group> dao;
+  private DAO<SchoolGroup> dao;
   
   @PersistenceContext(unitName = "AppDS")
   private EntityManager entityManager;
   
-  public GroupDAO(){
-       this.dao = new DAO<Group>(entityManager, Group.class);
+  public SchoolGroupDAO(){
+       this.dao = new DAO<SchoolGroup>(entityManager, SchoolGroup.class);
   }
   
-  public GroupDAO(EntityManager entityManager){
+  public SchoolGroupDAO(EntityManager entityManager){
 	    this.entityManager = entityManager;
-	    this.dao = new DAO<Group>(entityManager, Group.class);
+	    this.dao = new DAO<SchoolGroup>(entityManager, SchoolGroup.class);
   }
   
-  public List<Group> list() {
+  public List<SchoolGroup> list() {
       return this.dao.list();
   }
   
-  public void add(Group group) {
+  public void add(SchoolGroup group) {
       this.dao.adiciona(group);
   }
   

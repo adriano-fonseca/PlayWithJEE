@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class StudentGroup {
+public class StudentSchoolGroup {
   @Id
   @SequenceGenerator(name = "StudentGroup_SEQ", sequenceName = "ID_STUDENT_GROUP_SEQ", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "StudentGroup_SEQ")
@@ -25,11 +25,11 @@ public class StudentGroup {
   private Long idClass;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ID_STUDENT",insertable = false, updatable = false)
+  @JoinColumn(name = "ID_STUDENT", insertable = false, updatable = false)
   private Student student;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ID_TEACHER",insertable = false, updatable = false)
+  @JoinColumn(name = "ID_TEACHER", insertable = false, updatable = false)
   private Teacher teacher;
 
   public Student getStudent() {
@@ -88,7 +88,7 @@ public void setIdClass(Long idClass) {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    StudentGroup other = (StudentGroup) obj;
+    StudentSchoolGroup other = (StudentSchoolGroup) obj;
     if (idStudentGroup == null) {
       if (other.idStudentGroup != null)
         return false;

@@ -17,30 +17,30 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GROUP")
-public class Group implements Serializable {
+@Table(name = "SCHOOLGROUP")
+public class SchoolGroup implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "Group_SEQ", sequenceName = "ID_GROUP_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Group_SEQ")
-	@Column(name = "ID_GROUP")
-	private Long idGroup;
+	@SequenceGenerator(name = "SchoolGroup_SEQ", sequenceName = "ID_SCHOOLGROUP_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SchoolGroup_SEQ")
+	@Column(name = "ID_SCHOOLGROUP")
+	private Long idSchoolGroup;
 
-	@Column(name = "NAME_GROUP")
-	private String nameGroup;
+	@Column(name = "NAME_SCHOOLGROUP")
+	private String nameSchoolGroup;
 
-	@Column(name = "ID_SCHOOL_GROUP")
+	@Column(name = "ID_SCHOOL_SCHOOLGROUP")
 	private String idSchool;
 
-	@Column(name = "NAME_SERIATION_GROUP")
+	@Column(name = "NAME_SERIATION_SCHOOLGROUP")
 	private String nomeSerie;
 
-	@Column(name = "ID_TEACHER_GROUP")
+	@Column(name = "ID_TEACHER_SCHOOLGROUP")
 	private Long idTeacher;
 
-	@Column(name = "YEAR_GROUP")
+	@Column(name = "YEAR_SCHOOLGROUP")
 	private String year;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -52,22 +52,22 @@ public class Group implements Serializable {
 	private School school;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
-	private List<StudentGroup> listaStudentGroup = new ArrayList<StudentGroup>();
+	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
 
-	public Long getIdGroup() {
-		return idGroup;
+	public Long getIdSchoolGroup() {
+		return idSchoolGroup;
 	}
 
-	public void setIdGroup(Long idGroup) {
-		this.idGroup = idGroup;
+	public void setIdSchoolGroup(Long idSchoolGroup) {
+		this.idSchoolGroup = idSchoolGroup;
 	}
 
-	public String getNameGroup() {
-		return nameGroup;
+	public String getNameSchoolGroup() {
+		return nameSchoolGroup;
 	}
 
-	public void setNameGroup(String nameGroup) {
-		this.nameGroup = nameGroup;
+	public void setNameSchoolGroup(String nameSchoolGroup) {
+		this.nameSchoolGroup = nameSchoolGroup;
 	}
 
 	public String getIdSchool() {
@@ -122,7 +122,7 @@ public class Group implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idGroup == null) ? 0 : idGroup.hashCode());
+		result = prime * result + ((idSchoolGroup == null) ? 0 : idSchoolGroup.hashCode());
 		return result;
 	}
 
@@ -134,11 +134,11 @@ public class Group implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Group other = (Group) obj;
-		if (idGroup == null) {
-			if (other.idGroup != null)
+		SchoolGroup other = (SchoolGroup) obj;
+		if (idSchoolGroup == null) {
+			if (other.idSchoolGroup != null)
 				return false;
-		} else if (!idGroup.equals(other.idGroup))
+		} else if (!idSchoolGroup.equals(other.idSchoolGroup))
 			return false;
 		return true;
 	}

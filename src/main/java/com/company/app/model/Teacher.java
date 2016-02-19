@@ -30,20 +30,20 @@ public class Teacher implements Serializable {
 	private String name;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-	private List<Group> classList;
+	private List<SchoolGroup> classList;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-	private List<StudentGroup> listaStudentClass = new ArrayList<StudentGroup>();
+	private List<StudentSchoolGroup> listaStudentClass = new ArrayList<StudentSchoolGroup>();
 
 	public Long getIdTeacher() {
 		return idTeacher;
 	}
 
-	public List<Group> getClassList() {
+	public List<SchoolGroup> getClassList() {
 		return classList;
 	}
 
-	public void setClassList(List<Group> classList) {
+	public void setClassList(List<SchoolGroup> classList) {
 		this.classList = classList;
 	}
 

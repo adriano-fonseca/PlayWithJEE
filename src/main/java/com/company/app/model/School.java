@@ -34,7 +34,7 @@ public class School implements Serializable {
 	private Long phoneSchool;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "school")
-	private List<Group> listaClassSchool = new ArrayList<Group>();
+	private List<SchoolGroup> listaClassSchool = new ArrayList<SchoolGroup>();
 
 	public Long getIdSchool() {
 		return idSchool;
@@ -60,11 +60,11 @@ public class School implements Serializable {
 		this.phoneSchool = phoneSchool;
 	}
 
-	public List<Group> getListaClassSchool() {
+	public List<SchoolGroup> getListaClassSchool() {
 		return listaClassSchool;
 	}
 
-	public void setListaClassSchool(List<Group> listaClassSchool) {
+	public void setListaClassSchool(List<SchoolGroup> listaClassSchool) {
 		this.listaClassSchool = listaClassSchool;
 	}
 

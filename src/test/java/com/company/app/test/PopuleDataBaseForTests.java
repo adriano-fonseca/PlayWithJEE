@@ -1,10 +1,6 @@
 package com.company.app.test;
 
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,12 +8,12 @@ import javax.persistence.Persistence;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.company.app.dao.GroupDAO;
-import com.company.app.model.Group;
+import com.company.app.dao.SchoolGroupDAO;
 import com.company.app.model.School;
+import com.company.app.model.SchoolGroup;
 
 public class PopuleDataBaseForTests {
-
+/*
 	private EntityManager entityManager;
 	
 	private EntityManagerFactory factory;
@@ -35,11 +31,11 @@ public class PopuleDataBaseForTests {
 	    School schoolA = new School();
 	    schoolA.setNameSchool("Tiririca");
 	    
-	    Group group = new Group();
-	    group.setNameGroup("TESTE");
+	    SchoolGroup group = new SchoolGroup();
+	    group.setNameSchoolGroup("TESTE");
 		entityManager.getTransaction().begin();
 
-		 GroupDAO groupDAO = new GroupDAO(entityManager);
+		 SchoolGroupDAO groupDAO = new SchoolGroupDAO(entityManager);
 		 entityManager.getTransaction().commit();
 		
 //		List<Conta> contas = contaDAO.lista();
@@ -69,5 +65,5 @@ public class PopuleDataBaseForTests {
 //		List<Movimentacao> lista = movimentacaoDAO.lista();
 //		for (Movimentacao movimentacao : lista) {
 //			movimentacaoDAO.remove(movimentacao);
-//		}
+//		}*/
 	}

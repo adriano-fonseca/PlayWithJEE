@@ -37,7 +37,7 @@ public class Student implements Serializable {
 	private Calendar birthDayStudent;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
-	private List<StudentGroup> listaStudentClass = new ArrayList<StudentGroup>();
+	private List<StudentSchoolGroup> listaStudentClass = new ArrayList<StudentSchoolGroup>();
 
 	public Long getIdStudent() {
 		return idStudent;
