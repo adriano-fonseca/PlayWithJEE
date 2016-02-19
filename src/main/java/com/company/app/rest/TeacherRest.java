@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 
 import com.company.app.dao.HelperDAO;
-import com.company.app.dto.ProfessorDTO;
+import com.company.app.dto.TeacherDTO;
 
 @Path("/professores")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -31,7 +31,7 @@ public class TeacherRest {
 		LOGGER.info("AUTENTICACAO FINALIZADA!");
 		
 		LOGGER.info("INICIANDO SERVICO PROFESSORES CONSULTA...");
-		ProfessorDTO professor = helperRN.consultaProfessor(idTeacher);
+		TeacherDTO professor = helperRN.consultaProfessor(idTeacher);
 		LOGGER.info("FINALIZANDO SERVICO PROFESSORES CONSULTA...");
 		return Response.ok().entity(professor).build();
 	}

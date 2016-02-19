@@ -203,6 +203,12 @@
 					<version>1.0.0.Final</version>
 					<type>pom</type>
 					<scope>provided</scope>
+					<exclusions>
+						<exclusion>
+							<groupId>xalan</groupId>
+							<artifactId>xalan</artifactId>
+						</exclusion>
+					</exclusions>
 				</dependency>
 				<dependency>
 					<groupId>org.jboss.as</groupId>
@@ -213,10 +219,16 @@
 				<dependency>
 					<groupId>org.jboss.arquillian.protocol</groupId>
 					<artifactId>arquillian-protocol-servlet</artifactId>
-					<version>1.1.11.Final</version>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
+			<build>
+				<testResources>
+					<testResource>
+						<directory>src/test/resources-jbossas-managed</directory>
+					</testResource>
+				</testResources>
+			</build>
 		</profile>
 	</profiles>
 </project>

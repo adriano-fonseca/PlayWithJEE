@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-public class TurmaDTO implements Serializable{
+public class SchoolGroupDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -17,7 +17,7 @@ public class TurmaDTO implements Serializable{
 	private Calendar dtFimCalendario;
 	private String nomeSerie;
 	private Long idProfessor;
-	private List<AlunoDTO> alunos;
+	private List<StudentDTO> alunos;
 	private String nomeCurso;
 	
 	
@@ -75,10 +75,10 @@ public class TurmaDTO implements Serializable{
 	public void setIdProfessor(Long idProfessor) {
 		this.idProfessor = idProfessor;
 	}
-	public List<AlunoDTO> getAlunos() {
+	public List<StudentDTO> getAlunos() {
 		return alunos;
 	}
-	public void setAlunos(List<AlunoDTO> alunos) {
+	public void setAlunos(List<StudentDTO> alunos) {
 		this.alunos = alunos;
 	}
 	public String getNomeCurso() {

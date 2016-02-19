@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 
 import com.company.app.business.DAOException;
-import com.company.app.dto.ProfessorDTO;
+import com.company.app.dto.TeacherDTO;
 import com.company.app.model.Teacher;
 
 
@@ -44,9 +44,9 @@ public class HelperDAO {
 		}
 	}
 	
-	public ProfessorDTO consultaProfessor(Long idTeacher) {
+	public TeacherDTO consultaProfessor(Long idTeacher) {
 		Teacher professorED  = null;
-		ProfessorDTO professorDTO = null;
+		TeacherDTO professorDTO = null;
 		if (idTeacher == null) {
 			throw new DAOException("ID.Funcional do Professor não informado");
 		}

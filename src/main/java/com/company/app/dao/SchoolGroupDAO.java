@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import org.apache.log4j.Logger;
 
 import com.company.app.model.SchoolGroup;
-import com.company.app.model.Student;
 
 
 @Stateless

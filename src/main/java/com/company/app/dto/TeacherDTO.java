@@ -3,14 +3,14 @@ package com.company.app.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class ProfessorDTO implements Serializable{
+public class TeacherDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	private Long idProfessor;
 	private String nome;
 	private String idFuncional;
-	private List<TurmaDTO> turmas;
+	private List<SchoolGroupDTO> turmas;
 	
 	public Long getIdProfessor() {
 		return idProfessor;
@@ -30,10 +30,10 @@ public class ProfessorDTO implements Serializable{
 	public void setIdFuncional(String idFuncional) {
 		this.idFuncional = idFuncional;
 	}
-	public List<TurmaDTO> getTurmas() {
+	public List<SchoolGroupDTO> getTurmas() {
 		return turmas;
 	}
-	public void setTurmas(List<TurmaDTO> turmas) {
+	public void setTurmas(List<SchoolGroupDTO> turmas) {
 		this.turmas = turmas;
 	}
 	

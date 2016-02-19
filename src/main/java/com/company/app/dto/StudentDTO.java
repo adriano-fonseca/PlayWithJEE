@@ -2,7 +2,7 @@ package com.company.app.dto;
 
 import java.io.Serializable;
 
-public class AlunoDTO implements Serializable{
+public class StudentDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

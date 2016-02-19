@@ -2,7 +2,7 @@ package com.company.app.dto;
 
 import java.io.Serializable;
 
-public class Mensagem implements Serializable {
+public class aMessage implements Serializable {
 	/**
 	 * 
 	 */
@@ -10,7 +10,7 @@ public class Mensagem implements Serializable {
 	private String mensagem;
 
 	
-	public Mensagem(String mensagem) {
+	public aMessage(String mensagem) {
 		super();
 		this.mensagem = mensagem;
 	}

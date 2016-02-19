@@ -14,9 +14,9 @@ import org.hibernate.type.CalendarType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 
-import com.company.app.dto.AlunoDTO;
-import com.company.app.dto.ProfessorDTO;
-import com.company.app.dto.TurmaDTO;
+import com.company.app.dto.StudentDTO;
+import com.company.app.dto.TeacherDTO;
+import com.company.app.dto.SchoolGroupDTO;
 import com.company.app.model.Teacher;
 
 
@@ -52,7 +52,7 @@ public class TeacherDAO {
       this.dao.remove(conta);
     }
 
-  	public ProfessorDTO consulta(Teacher professorED){
+  	public TeacherDTO consulta(Teacher professorED){
   		//consulta professor
   		StringBuffer sqlProfessor = new StringBuffer();
   		sqlProfessor.append("Select id_professor as idProfessor, \n");
@@ -66,8 +66,8 @@ public class TeacherDAO {
   	    query.addScalar("idProfessor", LongType.INSTANCE);
   	    query.addScalar("nome", StringType.INSTANCE);
   	    query.addScalar("idFuncional", StringType.INSTANCE);
-  	    query.setResultTransformer(new AliasToBeanResultTransformer(ProfessorDTO.class));
-  	    ProfessorDTO professorDTO = (ProfessorDTO) query.uniqueResult();
+  	    query.setResultTransformer(new AliasToBeanResultTransformer(TeacherDTO.class));
+  	    TeacherDTO professorDTO = (TeacherDTO) query.uniqueResult();
   	    
   	    //consulta turma
   		StringBuffer sqlTurma = new StringBuffer();
@@ -96,8 +96,8 @@ public class TeacherDAO {
   		queryTurma.addScalar("nomeSerie", StringType.INSTANCE);
   		queryTurma.addScalar("idProfessor", LongType.INSTANCE);
   		queryTurma.addScalar("nomeCurso", StringType.INSTANCE);
-  		queryTurma.setResultTransformer(new AliasToBeanResultTransformer(TurmaDTO.class));
-  		List<TurmaDTO> listaTurma = queryTurma.list();
+  		queryTurma.setResultTransformer(new AliasToBeanResultTransformer(SchoolGroupDTO.class));
+  		List<SchoolGroupDTO> listaTurma = queryTurma.list();
   		
   		//consulta alunos
   		StringBuffer sqlAluno = new StringBuffer();
@@ -110,14 +110,14 @@ public class TeacherDAO {
   		sqlAluno.append("And m.id_turma = :idTurma \n");
   		sqlAluno.append("Order By a.nome \n");
   		SQLQuery queryAluno = session.createSQLQuery(sqlAluno.toString());
-  		queryAluno.setResultTransformer(new AliasToBeanResultTransformer(AlunoDTO.class));
+  		queryAluno.setResultTransformer(new AliasToBeanResultTransformer(StudentDTO.class));
   		if(listaTurma!=null && !listaTurma.isEmpty()){
-  			for(TurmaDTO turma : listaTurma){
+  			for(SchoolGroupDTO turma : listaTurma){
   				queryAluno.setParameter("idTurma", turma.getIdTurma());
   				queryAluno.addScalar("idAluno",LongType.INSTANCE);
   				queryAluno.addScalar("idAlunoTurma",LongType.INSTANCE);
   				queryAluno.addScalar("nome",StringType.INSTANCE);
-  				List<AlunoDTO> listaAlunos = queryAluno.list();
+  				List<StudentDTO> listaAlunos = queryAluno.list();
   				turma.setAlunos(listaAlunos);
   			}
   		}

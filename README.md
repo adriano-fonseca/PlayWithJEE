@@ -7,7 +7,30 @@ The idea is to test JPA, EJB, Hibernate in order to produce WebServices Rest and
 
 I intend configure unit and integration tests through use of JUnit and Arquillian.
 
+Example of datasource config to jboss 7.1.1 Final using Postgres 9.5, don't forget to put de jar inside of modules folder, respecting
+the structur org/postgresql/main/postgresql-xxx.jar
 
-```java	
-	/*Lets Go*/
+```xml	
+			<datasources>
+                <datasource jndi-name="java:jboss/datasources/AppDS" pool-name="AppDS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:postgresql://localhost:5432/app</connection-url>
+                    <driver>org.postgresql</driver>
+                    <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+                    <pool>
+                        <min-pool-size>10</min-pool-size>
+                        <max-pool-size>100</max-pool-size>
+                        <prefill>true</prefill>
+                    </pool>
+                    <security>
+                        <user-name>app</user-name>
+                        <password>pass</password>
+                    </security>
+                    <statement>
+                        <prepared-statement-cache-size>32</prepared-statement-cache-size>
+                        <share-prepared-statements>true</share-prepared-statements>
+                    </statement>
+                </datasource>
+                <drivers>
+                    <driver name="pgsql" module="org.org.postgresql"/>
+                </drivers>
  ```
