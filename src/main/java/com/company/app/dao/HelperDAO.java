@@ -17,7 +17,7 @@ public class HelperDAO {
 	@Inject
 	StudentDAO studentDAO;
 	@Inject
-	ClassDAO classDAO;
+	GroupDAO classDAO;
 	@Inject
 	TeacherDAO professorRN;
 

@@ -18,6 +18,10 @@ public class StudentDAO {
     @PersistenceContext(unitName = "AppDS")
     private EntityManager entityManager;
     
+    public StudentDAO() {
+        this.dao = new DAO<Student>(entityManager, Student.class);
+      }
+    
     public StudentDAO(EntityManager entityManager) {
       this.entityManager = entityManager;
       this.dao = new DAO<Student>(entityManager, Student.class);
@@ -28,7 +32,7 @@ public class StudentDAO {
     }
 
     public List<Student> lista() {
-      return this.dao.lista();
+      return this.dao.list();
     }
 
     public void remove(Student conta) {
