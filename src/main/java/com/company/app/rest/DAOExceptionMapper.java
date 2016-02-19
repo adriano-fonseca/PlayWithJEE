@@ -11,11 +11,11 @@ import javax.ws.rs.ext.Provider;
 import com.company.app.business.DAOException;
 
 @Provider
-public class DAOxceptionMapper implements ExceptionMapper<DAOException> {
+public class DAOExceptionMapper implements ExceptionMapper<DAOException> {
 	
 	@Override
 	public Response toResponse(DAOException ex) {
-		Map<String, String> erros = new HashMap<>();
+		Map<String, String> erros = new HashMap<String, String>();
 		erros.put("mensagem", ex.getMessage());
 		return Response.status(Status.BAD_REQUEST).entity(erros).build();
 	}
