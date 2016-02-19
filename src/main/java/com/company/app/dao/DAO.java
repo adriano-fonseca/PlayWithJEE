@@ -20,7 +20,7 @@ public class DAO<T> {
   }
 
   @SuppressWarnings("unchecked")
-  public List<T> lista() {
+  public List<T> list() {
     return entityManager.createQuery("select t from " + classe.getName() + " t").getResultList();
   }
 

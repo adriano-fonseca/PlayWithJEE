@@ -24,24 +24,28 @@ import com.company.app.model.Teacher;
 public class TeacherDAO {
 	
 	  @SuppressWarnings("unused")
-    private static final Logger LOGGER = Logger.getLogger(TeacherDAO.class); 
+	  private static final Logger LOGGER = Logger.getLogger(TeacherDAO.class); 
 	  
 	  private DAO<Teacher> dao;
 	  
 	  @PersistenceContext(unitName = "AppDS")
 	  private EntityManager em;
 	  
+	  public TeacherDAO() {
+	      this.dao = new DAO<Teacher>(this.em, Teacher.class);
+	  }
+	  
 	  public TeacherDAO(EntityManager entityManager) {
       this.em = entityManager;
       this.dao = new DAO<Teacher>(entityManager, Teacher.class);
-    }
+	  }
 	  
 	  public void adiciona(Teacher conta) {
       this.dao.adiciona(conta);
     }
 
     public List<Teacher> lista() {
-      return this.dao.lista();
+      return this.dao.list();
     }
 
     public void remove(Teacher conta) {

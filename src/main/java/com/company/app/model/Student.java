@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "STUDENT")
-public class Student implements Serializable{
+public class Student implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,62 +29,62 @@ public class Student implements Serializable{
 
 	@Column(name = "ID_STUDENT")
 	private Long idStudent;
-	
+
 	@Column(name = "NAME_STUDENT")
 	private String nameStudent;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Calendar birthDayStudent;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
-  private List<StudentClass> listaStudentClass = new ArrayList<StudentClass>();
+	private List<StudentGroup> listaStudentClass = new ArrayList<StudentGroup>();
 
-  public Long getIdStudent() {
-    return idStudent;
-  }
+	public Long getIdStudent() {
+		return idStudent;
+	}
 
-  public void setIdStudent(Long idStudent) {
-    this.idStudent = idStudent;
-  }
+	public void setIdStudent(Long idStudent) {
+		this.idStudent = idStudent;
+	}
 
-  public String getNameStudent() {
-    return nameStudent;
-  }
+	public String getNameStudent() {
+		return nameStudent;
+	}
 
-  public void setNameStudent(String nameStudent) {
-    this.nameStudent = nameStudent;
-  }
+	public void setNameStudent(String nameStudent) {
+		this.nameStudent = nameStudent;
+	}
 
-  public Calendar getBirthDayStudent() {
-    return birthDayStudent;
-  }
+	public Calendar getBirthDayStudent() {
+		return birthDayStudent;
+	}
 
-  public void setBirthDayStudent(Calendar birthDayStudent) {
-    this.birthDayStudent = birthDayStudent;
-  }
+	public void setBirthDayStudent(Calendar birthDayStudent) {
+		this.birthDayStudent = birthDayStudent;
+	}
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((idStudent == null) ? 0 : idStudent.hashCode());
-    return result;
-  }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idStudent == null) ? 0 : idStudent.hashCode());
+		return result;
+	}
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Student other = (Student) obj;
-    if (idStudent == null) {
-      if (other.idStudent != null)
-        return false;
-    } else if (!idStudent.equals(other.idStudent))
-      return false;
-    return true;
-  }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (idStudent == null) {
+			if (other.idStudent != null)
+				return false;
+		} else if (!idStudent.equals(other.idStudent))
+			return false;
+		return true;
+	}
 }
