@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.company.app.Greeter;
+import com.company.app.dao.DAO;
 import com.company.app.dao.SchoolGroupDAO;
 import com.company.app.dao.TeacherDAO;
 import com.company.app.dto.SchoolGroupDTO;
@@ -36,6 +37,7 @@ public class GreeterTest {
             .addClass(ResultTransformer.class)
             .addClass(Greeter.class)
             .addClass(SchoolGroup.class)
+            .addClass(DAO.class)
             .addClass(SchoolGroupDAO.class)
             .addClass(TeacherDAO.class)
             .addClass(Teacher.class)
@@ -45,7 +47,8 @@ public class GreeterTest {
             .addClass(SchoolGroupDTO.class)
             .addClass(StudentDTO.class)
             .addClass(TeacherDTO.class)
-            .addAsResource("test-persistence.xml","META-INF/persistence.xml");  
+            .addAsResource("test-persistence.xml","META-INF/persistence.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         
         
 //        .addPackages(true, "com.company.app.dao")

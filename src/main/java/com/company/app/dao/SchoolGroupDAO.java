@@ -25,11 +25,6 @@ public class SchoolGroupDAO {
        this.dao = new DAO<SchoolGroup>(entityManager, SchoolGroup.class);
   }
   
-  public SchoolGroupDAO(EntityManager entityManager){
-	    this.entityManager = entityManager;
-	    this.dao = new DAO<SchoolGroup>(entityManager, SchoolGroup.class);
-  }
-  
   public List<SchoolGroup> list() {
       return this.dao.list();
   }
