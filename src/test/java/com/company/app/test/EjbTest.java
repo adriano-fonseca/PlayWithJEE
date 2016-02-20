@@ -1,6 +1,7 @@
 package com.company.app.test;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 
 import org.hibernate.transform.ResultTransformer;
@@ -15,20 +16,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.company.app.Greeter;
+import com.company.app.business.DAOException;
 import com.company.app.dao.DAO;
 import com.company.app.dao.SchoolGroupDAO;
 import com.company.app.dao.TeacherDAO;
-import com.company.app.dto.SchoolGroupDTO;
-import com.company.app.dto.StudentDTO;
-import com.company.app.dto.TeacherDTO;
 import com.company.app.model.School;
 import com.company.app.model.SchoolGroup;
-import com.company.app.model.Student;
 import com.company.app.model.StudentSchoolGroup;
-import com.company.app.model.Teacher;
 
 @RunWith(Arquillian.class)
-public class GreeterTest {
+public class EjbTest {
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -36,25 +33,18 @@ public class GreeterTest {
             .addClass(Type.class)
             .addClass(ResultTransformer.class)
             .addClass(Greeter.class)
-            .addClass(SchoolGroup.class)
             .addClass(DAO.class)
+            .addClass(DAOException.class)
             .addClass(SchoolGroupDAO.class)
             .addClass(TeacherDAO.class)
-            .addClass(Teacher.class)
-            .addClass(School.class)
             .addClass(StudentSchoolGroup.class)
-            .addClass(Student.class)
-            .addClass(SchoolGroupDTO.class)
-            .addClass(StudentDTO.class)
-            .addClass(TeacherDTO.class)
+            .addPackages(true, "com.company.app.model")
+            .addPackages(true, "com.company.app.dto")
             .addAsResource("test-persistence.xml","META-INF/persistence.xml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-        
-        
-//        .addPackages(true, "com.company.app.dao")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml"); //Enabling CDI
     }
 
-    @Inject
+    @EJB
     SchoolGroupDAO schoolGroupDAO;
     
     @Inject
@@ -67,7 +57,7 @@ public class GreeterTest {
     }
     
     @Test
-    public  void populateDataBase(){
+    public void shouldFailIfHasMoreTheOneGroup(){
       School schoolA = new School();
       schoolA.setNameSchool("Tiririca");
       
@@ -75,6 +65,7 @@ public class GreeterTest {
       group.setNameSchoolGroup("TESTE");
       schoolGroupDAO.add(group);
       List<SchoolGroup> list = schoolGroupDAO.list();
+      System.out.println(list.size());
       Assert.assertEquals(list.size(), 1);
     }
     

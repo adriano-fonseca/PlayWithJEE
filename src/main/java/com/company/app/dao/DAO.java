@@ -4,24 +4,29 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.company.app.business.DAOException;
+
 public class DAO<T> {
 
   private EntityManager entityManager;
   
-  private Class<T> classe;
+  private Class<T> className;
 
-  public DAO(EntityManager entityManager, Class<T> classe) {
-    this.entityManager = entityManager;
-    this.classe = classe;
+  protected void init(EntityManager em, Class<T> className) {
+    this.entityManager = em;
+    this.className = className;
   }
 
-  public void adiciona(T t) {
+  public void add(T t) {
+    if(this.entityManager==null){
+      throw new DAOException("Erro entityManager");
+    }
     this.entityManager.persist(t);
   }
 
   @SuppressWarnings("unchecked")
   public List<T> list() {
-    return entityManager.createQuery("select t from " + classe.getName() + " t").getResultList();
+    return entityManager.createQuery("select t from " + className.getName() + " t").getResultList();
   }
 
   public void remove(T t) {

@@ -14,44 +14,21 @@ import org.hibernate.type.CalendarType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 
+import com.company.app.dto.SchoolGroupDTO;
 import com.company.app.dto.StudentDTO;
 import com.company.app.dto.TeacherDTO;
-import com.company.app.dto.SchoolGroupDTO;
 import com.company.app.model.Teacher;
 
 
 @Stateless
-public class TeacherDAO {
+public class TeacherDAO extends DAO<Teacher> {
 	
 	  @SuppressWarnings("unused")
 	  private static final Logger LOGGER = Logger.getLogger(TeacherDAO.class); 
 	  
-	  private DAO<Teacher> dao;
-	  
 	  @PersistenceContext(unitName = "AppDS")
 	  private EntityManager em;
 	  
-	  public TeacherDAO() {
-	      this.dao = new DAO<Teacher>(this.em, Teacher.class);
-	  }
-	  
-	  public TeacherDAO(EntityManager entityManager) {
-      this.em = entityManager;
-      this.dao = new DAO<Teacher>(entityManager, Teacher.class);
-	  }
-	  
-	  public void adiciona(Teacher conta) {
-      this.dao.adiciona(conta);
-    }
-
-    public List<Teacher> lista() {
-      return this.dao.list();
-    }
-
-    public void remove(Teacher conta) {
-      this.dao.remove(conta);
-    }
-
   	public TeacherDTO consulta(Teacher professorED){
   		//consulta professor
   		StringBuffer sqlProfessor = new StringBuffer();

@@ -1,8 +1,9 @@
 package com.company.app.dao;
 
-import java.util.List;
-
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -12,26 +13,18 @@ import com.company.app.model.SchoolGroup;
 
 
 @Stateless
-public class SchoolGroupDAO {
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+public class SchoolGroupDAO extends DAO<SchoolGroup> {
+ 
   @SuppressWarnings("unused")
-  private static final Logger LOGGER = Logger.getLogger(TeacherDAO.class); 
-  
-  private DAO<SchoolGroup> dao;
+  private static final Logger LOGGER = Logger.getLogger(SchoolGroupDAO.class); 
   
   @PersistenceContext(unitName = "AppDS")
   private EntityManager entityManager;
   
-  public SchoolGroupDAO(){
-       this.dao = new DAO<SchoolGroup>(entityManager, SchoolGroup.class);
+  @PostConstruct
+  public void init() {
+    super.init(entityManager,SchoolGroup.class);
   }
-  
-  public List<SchoolGroup> list() {
-      return this.dao.list();
-  }
-  
-  public void add(SchoolGroup group) {
-      this.dao.adiciona(group);
-  }
-  
   
 }

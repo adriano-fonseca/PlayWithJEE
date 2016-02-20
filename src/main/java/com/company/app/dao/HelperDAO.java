@@ -16,8 +16,10 @@ public class HelperDAO {
 	
 	@Inject
 	StudentDAO studentDAO;
+	
 	@Inject
 	SchoolGroupDAO schoolClassDAO;
+	
 	@Inject
 	TeacherDAO professorRN;
 
