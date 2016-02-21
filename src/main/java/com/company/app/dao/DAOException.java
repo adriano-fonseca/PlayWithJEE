@@ -1,4 +1,4 @@
-package com.company.app.business;
+package com.company.app.dao;
 
 import javax.ejb.ApplicationException;
 

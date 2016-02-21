@@ -16,7 +16,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.log4j.Logger;
 
-import com.company.app.business.DAOException;
+import com.company.app.dao.DAOException;
 
 /**
  * 

@@ -1,11 +1,12 @@
 package com.company.app.rest;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -16,27 +17,13 @@ import com.company.app.dao.HelperDAO;
 public class StudentRest {
 	
 	@Inject
-	HelperDAO helperRN;
+	HelperDAO helperDAO;
 	
 	@GET
 	@Path("/{id}")
 	public Response find(@PathParam("id") Long idStudent){
-		//em construção...
-		return null;
+//		TeacherDTO teacherDTO = helperDAO.consultaProfessor(1L);
+	  HashMap<String, String> map = new HashMap<String, String>();
+		return  Response.ok(map).build();
 	}
-	
-	@GET
-	@Path("/{idClass}")
-	public Response list(@PathParam("idClass") Long idClass){
-		//em construção...
-		return null;
-	}
-	
-	@GET
-	public Response list(@QueryParam("name") String name) {
-		//em construção...
-		return null;
-	}
-	
-
 }

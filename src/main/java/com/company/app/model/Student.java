@@ -19,7 +19,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "STUDENT")
-public class Student implements Serializable {
+public class Student extends BaseBean<Long>
+implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -87,4 +88,16 @@ public class Student implements Serializable {
 			return false;
 		return true;
 	}
+
+  @Override
+  public Long getId() {
+    // TODO Auto-generated method stub
+    return this.idStudent;
+  }
+
+  @Override
+  public String toString() {
+    return "Student [idStudent=" + idStudent + ", nameStudent=" + nameStudent + ", birthDayStudent=" + birthDayStudent + "]";
+  }
+  
 }

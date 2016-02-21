@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SCHOOLGROUP")
-public class SchoolGroup implements Serializable {
+public class SchoolGroup extends BaseBean<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -142,5 +142,10 @@ public class SchoolGroup implements Serializable {
 			return false;
 		return true;
 	}
+
+  @Override
+  public Long getId() {
+    return this.idSchoolGroup;
+  }
 
 }

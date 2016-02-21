@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.company.app.business.DAOException;
+import com.company.app.dao.DAOException;
 
 @Provider
 public class DAOExceptionMapper implements ExceptionMapper<DAOException> {

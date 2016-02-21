@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TEACHER")
-public class Teacher implements Serializable {
+public class Teacher extends BaseBean<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -83,4 +83,10 @@ public class Teacher implements Serializable {
 			return false;
 		return true;
 	}
+
+  @Override
+  public Long getId() {
+    // TODO Auto-generated method stub
+    return this.idTeacher;
+  }
 }

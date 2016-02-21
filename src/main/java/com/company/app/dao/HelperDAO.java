@@ -5,7 +5,6 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
-import com.company.app.business.DAOException;
 import com.company.app.dto.TeacherDTO;
 import com.company.app.model.Teacher;
 
@@ -21,7 +20,7 @@ public class HelperDAO {
 	SchoolGroupDAO schoolClassDAO;
 	
 	@Inject
-	TeacherDAO professorRN;
+	TeacherDAO teacherDAO;
 
 	public void validaUsuario(String identificacao,String senha){
 //		if(identificacao==null || identificacao.isEmpty()){
@@ -45,23 +44,10 @@ public class HelperDAO {
 			throw new DAOException("Usuário não autenticado. Verifique os dados de autenticação!");
 		}
 	}
-	
-	public TeacherDTO consultaProfessor(Long idTeacher) {
-		Teacher professorED  = null;
-		TeacherDTO professorDTO = null;
-		if (idTeacher == null) {
-			throw new DAOException("ID.Funcional do Professor não informado");
-		}
-		professorED = new Teacher();
-		professorED.setIdTeacher(idTeacher);
-		try {
-			LOGGER.info("CONSULTA PROFESSOR...");
-			professorDTO = professorRN.consulta(professorED);
-			LOGGER.info("CONSULTA PROFESSOR FINALIZADA!");
-		} catch (Exception e) {
-			LOGGER.error("Erro ao consultar professor: "+e.getMessage());
-			throw new DAOException("Erro ao consultar professor: "+e.getMessage());
-		}
-		return professorDTO;
-	}
+
+  public Teacher find(Long idTeacher) {
+    Teacher teacher = new Teacher();
+    teacher.setIdTeacher(idTeacher);
+    return teacherDAO.find(teacher);
+  }
 }
