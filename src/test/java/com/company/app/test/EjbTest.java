@@ -1,11 +1,12 @@
 package com.company.app.test;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
-import javax.swing.text.StyledEditorKit.ItalicAction;
+import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.hibernate.transform.ResultTransformer;
@@ -20,11 +21,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.company.app.Greeter;
+import com.company.app.TestSystemProperties;
 import com.company.app.dao.SchoolGroupDAO;
 import com.company.app.dao.StudentDAO;
 import com.company.app.exception.RecordNotFoundException;
-import com.company.app.model.Student;
+import com.company.app.model.Book;
 
 @RunWith(Arquillian.class)
 public class EjbTest {
@@ -34,13 +35,16 @@ public class EjbTest {
         return ShrinkWrap.create(WebArchive.class)
             .addClass(Type.class)
             .addClass(ResultTransformer.class)
-            .addClass(Greeter.class)
+            .addClass(TestSystemProperties.class)
             .addPackages(true, "org.apache.commons.lang3")
             .addPackages(true, "com.company.app.dao")
             .addPackages(true, "com.company.app.model")
             .addPackages(true, "com.company.app.dto")
             .addPackages(true, "com.company.app.exception")
-            .addAsResource("test-persistence.xml","META-INF/persistence.xml")
+            //.addAsResource("test-persistence.xml","META-INF/persistence.xml")
+            
+            .addAsResource("h2-test-persistence.xml","META-INF/persistence.xml")
+
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml"); //Enabling CDI
     }
     
@@ -50,7 +54,7 @@ public class EjbTest {
     @EJB
     SchoolGroupDAO schoolGroupDAO;
     
-    @EJB
+    @Inject
     StudentDAO studentDAO;
     
 //    @Test
@@ -73,28 +77,34 @@ public class EjbTest {
     }
     
     @Test
+    public void deveAcessarSystemProperty(){
+      assertEquals("teste", System.getProperty("property.test"));
+    }
+    
+    @Test
     public void shouldFailStudentNotPersisted(){
-      Student student = new Student();
+      Book student = new Book();
       student.setNameStudent("Adriano Fonseca");
       Calendar birthDay = Calendar.getInstance();
       birthDay.set(1986,6,23); //23/07/1986
       student.setBirthDayStudent(birthDay);
       studentDAO.add(student);
       
-      Student student2 = new Student();
+      Book student2 = new Book();
       student.setNameStudent("Suelen Torres");
       Calendar birthDay2 = Calendar.getInstance();
       birthDay2.set(1986,6,04); //23/07/1986
       student.setBirthDayStudent(birthDay2);
       studentDAO.add(student2);
       
-      List<Student>list = studentDAO.list();
+      List<Book>list = studentDAO.list();
       Assert.assertEquals(list.size(), 2);
+      
     }
     
     @Test(expected = RecordNotFoundException.class)
     public void shouldFailIfStudentWasFaound(){
-      Student student = new Student();
+      Book student = new Book();
       student.setIdStudent(1000L);
 //      student.setNameStudent("Adriano da Silva Fonseca");
       student = studentDAO.find(student);
@@ -102,22 +112,22 @@ public class EjbTest {
     
     @Test
     public void shouldFailStudentNotRemoved(){
-      List<Student> list = studentDAO.list();
-      Iterator<Student> it =list.iterator();
+      List<Book> list = studentDAO.list();
+      Iterator<Book> it =list.iterator();
       
       while(it.hasNext()){
-        Student student = it.next();
+        Book student = it.next();
         studentDAO.remove(student);
       }
-      List<Student> list2 = studentDAO.list();
+      List<Book> list2 = studentDAO.list();
       Assert.assertEquals(list2.size(), 0);
     }
     
-    @Test(expected = EJBException.class)
-    public void shouldFailIfThreIsStudentReturned(){
-      Student student = new Student();
-      student.setIdStudent(1L);
-      studentDAO.remove(student);
-      List<Student>list = studentDAO.list();
-    }
+//    @Test(expected = EJBException.class)
+//    public void shouldFailIfThreIsStudentReturned(){
+//      Student student = new Student();
+//      student.setIdStudent(1L);
+//      studentDAO.remove(student);
+//      List<Student>list = studentDAO.list();
+//    }
 }

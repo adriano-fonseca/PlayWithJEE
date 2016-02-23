@@ -2,6 +2,7 @@ package com.company.app.dao;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,8 +27,13 @@ public class TeacherDAO extends DAO<Teacher> {
 	  @SuppressWarnings("unused")
 	  private static final Logger LOGGER = Logger.getLogger(TeacherDAO.class); 
 	  
-	  @PersistenceContext(unitName = "AppDS")
+	  @PersistenceContext 
 	  private EntityManager em;
+	  
+	  @PostConstruct
+	  public void init() {
+	    super.init(em,Teacher.class);
+	  }
 	  
   	public TeacherDTO consulta(Teacher professorED){
   		//consulta professor

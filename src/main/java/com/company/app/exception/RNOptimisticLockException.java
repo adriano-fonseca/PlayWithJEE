@@ -1,6 +1,5 @@
 package com.company.app.exception;
 
-import com.company.app.dao.DAOException;
 
 public class RNOptimisticLockException extends DAOException {
 

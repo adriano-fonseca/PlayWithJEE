@@ -5,7 +5,7 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
-import com.company.app.dto.TeacherDTO;
+import com.company.app.exception.DAOException;
 import com.company.app.model.Teacher;
 
 

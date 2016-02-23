@@ -7,34 +7,34 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import com.company.app.model.Student;
+import com.company.app.model.Book;
 
 @Stateless
-public class StudentDAO extends DAO<Student> {
+public class StudentDAO extends DAO<Book> {
 
-    @PersistenceContext(unitName = "AppDS")
+    @PersistenceContext 
     private EntityManager entityManager;
     
     @PostConstruct
     public void init() {
-      super.init(entityManager,Student.class);
+      super.init(entityManager,Book.class);
     }
     
-    public Student searchByNameWithPositionParameter(String name) {
+    public Book searchByNameWithPositionParameter(String name) {
       Query query = entityManager.createQuery("select c from Student c where c.nameStudent = ?1");
       query.setParameter(1, name);
-      return (Student) query.getSingleResult();
+      return (Book) query.getSingleResult();
     }
     
-    public Student searchByNameWithNamedParameter(String name) {
+    public Book searchByNameWithNamedParameter(String name) {
       Query query = entityManager.createQuery("select c from Student c where c.nameStudent = :name");
       query.setParameter("name", name);
       
-      return (Student) query.getSingleResult();
+      return (Book) query.getSingleResult();
     }
     
-    public Student searchByNameWithTypedQuery(String name) {
-      TypedQuery<Student> query = entityManager.createQuery("select c from Student c where c.nameStudent = :name", Student.class);
+    public Book searchByNameWithTypedQuery(String name) {
+      TypedQuery<Book> query = entityManager.createQuery("select c from Student c where c.nameStudent = :name", Book.class);
       query.setParameter("name", name);
       return query.getSingleResult();
     }

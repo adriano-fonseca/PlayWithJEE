@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
 import com.company.app.dao.util.UtilDAO;
+import com.company.app.exception.DAOException;
 import com.company.app.exception.RNOptimisticLockException;
 import com.company.app.exception.RecordNotFoundException;
 import com.company.app.model.BaseBean;

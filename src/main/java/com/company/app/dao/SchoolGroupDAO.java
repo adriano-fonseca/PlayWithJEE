@@ -19,7 +19,7 @@ public class SchoolGroupDAO extends DAO<SchoolGroup> {
   @SuppressWarnings("unused")
   private static final Logger LOGGER = Logger.getLogger(SchoolGroupDAO.class); 
   
-  @PersistenceContext(unitName = "AppDS")
+  @PersistenceContext 
   private EntityManager entityManager;
   
   @PostConstruct

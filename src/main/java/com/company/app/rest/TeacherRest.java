@@ -36,5 +36,8 @@ public class TeacherRest {
 		return Response.ok().entity(professor).build();
 	}
 	
-	
+	@GET
+  public Response find(){
+    return Response.ok().entity("Ok").build();
+  }
 }

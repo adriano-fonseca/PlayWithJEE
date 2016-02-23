@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "STUDENT")
-public class Student extends BaseBean<Long>
+public class Book extends BaseBean<Long>
 implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -80,7 +80,7 @@ implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Student other = (Student) obj;
+		Book other = (Book) obj;
 		if (idStudent == null) {
 			if (other.idStudent != null)
 				return false;
