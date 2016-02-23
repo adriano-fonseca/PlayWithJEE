@@ -14,8 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "TEACHER")
+@JsonIgnoreProperties({ "listaStudentSchoolGroup", "schoolGroupList", "id"})
 public class Teacher extends BaseBean<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,21 +33,13 @@ public class Teacher extends BaseBean<Long> implements Serializable {
 	private String name;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-	private List<SchoolGroup> classList;
+	private List<SchoolGroup> schoolGroupList;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-	private List<StudentSchoolGroup> listaStudentClass = new ArrayList<StudentSchoolGroup>();
+	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
 
 	public Long getIdTeacher() {
 		return idTeacher;
-	}
-
-	public List<SchoolGroup> getClassList() {
-		return classList;
-	}
-
-	public void setClassList(List<SchoolGroup> classList) {
-		this.classList = classList;
 	}
 
 	public void setIdTeacher(Long idTeacher) {
@@ -58,8 +53,24 @@ public class Teacher extends BaseBean<Long> implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public List<SchoolGroup> getSchoolGroupList() {
+    return schoolGroupList;
+  }
 
-	@Override
+  public void setSchoolGroupList(List<SchoolGroup> schoolGroupList) {
+    this.schoolGroupList = schoolGroupList;
+  }
+
+  public List<StudentSchoolGroup> getListaStudentSchoolGroup() {
+    return listaStudentSchoolGroup;
+  }
+
+  public void setListaStudentSchoolGroup(List<StudentSchoolGroup> listaStudentSchoolGroup) {
+    this.listaStudentSchoolGroup = listaStudentSchoolGroup;
+  }
+
+  @Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

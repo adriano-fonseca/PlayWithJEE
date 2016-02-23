@@ -1,9 +1,9 @@
-package com.company.app.rest;
+package com.company.resources;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 @ApplicationPath("/rest")
-public class RestConfigurator extends Application {
+public class ResourceConfigurator extends Application {
 
 }

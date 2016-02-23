@@ -10,19 +10,11 @@ import com.company.app.model.Teacher;
 
 
 @Stateless
-public class HelperDAO {
-	private static final Logger LOGGER = Logger.getLogger(HelperDAO.class); 
+public class HelperService {
+	private static final Logger LOGGER = Logger.getLogger(HelperService.class); 
 	
-	@Inject
-	StudentDAO studentDAO;
-	
-	@Inject
-	SchoolGroupDAO schoolClassDAO;
-	
-	@Inject
-	TeacherDAO teacherDAO;
 
-	public void validaUsuario(String identificacao,String senha){
+	public void validateUser(String identificacao,String senha){
 //		if(identificacao==null || identificacao.isEmpty()){
 //			throw new RNException("Identificação do uuário não informada!");
 //		}
@@ -44,10 +36,4 @@ public class HelperDAO {
 			throw new DAOException("Usuário não autenticado. Verifique os dados de autenticação!");
 		}
 	}
-
-  public Teacher find(Long idTeacher) {
-    Teacher teacher = new Teacher();
-    teacher.setIdTeacher(idTeacher);
-    return teacherDAO.find(teacher);
-  }
 }

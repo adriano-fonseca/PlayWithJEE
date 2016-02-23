@@ -1,4 +1,4 @@
-package com.company.app.rest;
+package com.company.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -8,14 +8,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.company.app.dao.HelperDAO;
+import com.company.app.dao.HelperService;
 
 @Path("/classes")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public class ClassRest {
+public class SchoolGroupResource {
 	
 	@Inject
-	HelperDAO helperRN;
+	HelperService helperRN;
 	
 	@GET
 	@Path("/{idClass}")

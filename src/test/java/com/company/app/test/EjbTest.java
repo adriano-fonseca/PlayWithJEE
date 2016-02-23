@@ -25,7 +25,7 @@ import com.company.app.TestSystemProperties;
 import com.company.app.dao.SchoolGroupDAO;
 import com.company.app.dao.StudentDAO;
 import com.company.app.exception.RecordNotFoundException;
-import com.company.app.model.Book;
+import com.company.app.model.Student;
 
 @RunWith(Arquillian.class)
 public class EjbTest {
@@ -83,28 +83,28 @@ public class EjbTest {
     
     @Test
     public void shouldFailStudentNotPersisted(){
-      Book student = new Book();
+      Student student = new Student();
       student.setNameStudent("Adriano Fonseca");
       Calendar birthDay = Calendar.getInstance();
       birthDay.set(1986,6,23); //23/07/1986
       student.setBirthDayStudent(birthDay);
       studentDAO.add(student);
       
-      Book student2 = new Book();
+      Student student2 = new Student();
       student.setNameStudent("Suelen Torres");
       Calendar birthDay2 = Calendar.getInstance();
       birthDay2.set(1986,6,04); //23/07/1986
       student.setBirthDayStudent(birthDay2);
       studentDAO.add(student2);
       
-      List<Book>list = studentDAO.list();
+      List<Student>list = studentDAO.list();
       Assert.assertEquals(list.size(), 2);
       
     }
     
     @Test(expected = RecordNotFoundException.class)
     public void shouldFailIfStudentWasFaound(){
-      Book student = new Book();
+      Student student = new Student();
       student.setIdStudent(1000L);
 //      student.setNameStudent("Adriano da Silva Fonseca");
       student = studentDAO.find(student);
@@ -112,14 +112,14 @@ public class EjbTest {
     
     @Test
     public void shouldFailStudentNotRemoved(){
-      List<Book> list = studentDAO.list();
-      Iterator<Book> it =list.iterator();
+      List<Student> list = studentDAO.list();
+      Iterator<Student> it =list.iterator();
       
       while(it.hasNext()){
-        Book student = it.next();
+        Student student = it.next();
         studentDAO.remove(student);
       }
-      List<Book> list2 = studentDAO.list();
+      List<Student> list2 = studentDAO.list();
       Assert.assertEquals(list2.size(), 0);
     }
     

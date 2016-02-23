@@ -1,5 +1,7 @@
 package com.company.app.exception;
 
+import java.util.HashMap;
+
 
 /**
  * 
@@ -12,7 +14,7 @@ public class RecordNotFoundException extends DAOException {
 
   private static final long serialVersionUID = 1L;
 
-  public RecordNotFoundException(String msg) {
-    super(msg);
+  public RecordNotFoundException(HashMap<String, String> msg) {
+    super(msg.get("message"));
   }
 }

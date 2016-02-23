@@ -26,17 +26,17 @@ public class StudentSchoolGroup {
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ID_STUDENT", insertable = false, updatable = false)
-  private Book student;
+  private Student student;
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ID_TEACHER", insertable = false, updatable = false)
   private Teacher teacher;
 
-  public Book getStudent() {
+  public Student getStudent() {
     return student;
   }
 
-  public void setStudent(Book student) {
+  public void setStudent(Student student) {
     this.student = student;
   }
 

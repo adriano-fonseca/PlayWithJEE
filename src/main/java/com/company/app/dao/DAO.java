@@ -1,6 +1,7 @@
 package com.company.app.dao;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,8 +16,8 @@ import com.company.app.model.BaseBean;
 public class DAO<Bean extends BaseBean<? extends Serializable>> {
 
   private EntityManager em;
-  
-  private Class<Bean> className;
+
+  private Class<Bean>   className;
 
   protected void init(EntityManager em, Class<Bean> className) {
     this.em = em;
@@ -25,24 +26,26 @@ public class DAO<Bean extends BaseBean<? extends Serializable>> {
 
   public Bean add(Bean t) {
     if (em.contains(t)) {
-      throw new RuntimeException(
-          "Tentando incluir um objeto que já está gerenciado.");
+      throw new RuntimeException("Trying add an object already menaged.");
     }
     em.persist(t);
     em.flush();
     return t;
   }
-  
-  public Bean Change(Bean t){
-      try {
-        Bean queryBean = find(t);
-        if (queryBean == null) {
-          throw new RecordNotFoundException("Record not foud!");
-        }
-      } catch (DAOException e) {
-        // troca a mensagem de consulta pela de alteracao
-        throw new RecordNotFoundException(e.getMessage());
+
+  public Bean change(Bean t) {
+    HashMap<String, String> msg = null;
+    try {
+      Bean queryBean = find(t);
+      if (queryBean == null) {
+        msg = new HashMap<String, String>();
+        msg.put("message", "Record not found!");
+        throw new RecordNotFoundException(msg);
       }
+    } catch (DAOException e) {
+      msg.put("message", "Record not found!");
+      throw new RecordNotFoundException(msg);
+    }
 
     Bean managed = em.merge(t);
     if (UtilDAO.isOpenJpa(em)) {
@@ -58,30 +61,37 @@ public class DAO<Bean extends BaseBean<? extends Serializable>> {
   }
 
   @SuppressWarnings("unchecked")
-  public void remove(Bean t) {
-      Object conteudoPk = t.getId();
+  public HashMap<String, String> remove(Bean t) {
+    Object conteudoPk = t.getId();
+    HashMap<String, String> msg = null;
+    
+    try {
+      Bean entityFind = (Bean) em.find(t.getClass(), conteudoPk);
+      em.remove(entityFind);
       try {
-        Bean entityFind = (Bean) em.find(t.getClass(), conteudoPk);
-        em.remove(entityFind);
-        try {
-          em.flush();
-        } catch (NullPointerException e) {
-          // see forum
-          // http://www.eclipse.org/forums/index.php/m/799970/#msg_799970
-          throw new RNOptimisticLockException();
-        }
-      } catch (EntityNotFoundException e) {
-        String msg = "Record not found.";
-        if (msg != null) {
-          throw new RecordNotFoundException(msg);
-        }
+        em.flush();
+        msg = new HashMap<String, String>();
+        msg.put("message", "Teacher removed!");
+      } catch (NullPointerException e) {
+        // see forum
+        // http://www.eclipse.org/forums/index.php/m/799970/#msg_799970
+        throw new RNOptimisticLockException();
+      }
+    } catch (EntityNotFoundException e) {
+        msg.put("message","Record not found.");
+      if (msg != null) {
+        throw new RecordNotFoundException(msg);
       }
     }
-  
+    return msg;
+  }
+
   public Bean find(Bean t) {
     Bean entityReturned = this.em.find(className, t.getId());
+    HashMap<String, String> msg = null;
     if (entityReturned == null) {
-      String msg = "Record not found.";
+      msg = new HashMap<String, String>();
+      msg.put("message", "Record not found!");
       if (msg != null) {
         throw new RecordNotFoundException(msg);
       }

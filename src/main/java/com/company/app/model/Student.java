@@ -17,9 +17,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "STUDENT")
-public class Book extends BaseBean<Long>
+@JsonIgnoreProperties({ "listaStudentClass", "id"})
+public class Student extends BaseBean<Long>
 implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -80,7 +83,7 @@ implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Book other = (Book) obj;
+		Student other = (Student) obj;
 		if (idStudent == null) {
 			if (other.idStudent != null)
 				return false;
