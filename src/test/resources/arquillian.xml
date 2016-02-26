@@ -41,7 +41,7 @@
 
 		</configuration>
 	</container> -->
-      <container qualifier="chameleon" >
+      <container qualifier="chameleon" default="true" >
         <configuration>
             <property name="chameleonContainerConfigurationFile">procergs.yaml</property>
             <property name="chameleonTarget">jboss-procergs:6.3.4.Final:${arquillian.container}</property>

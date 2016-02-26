@@ -1,4 +1,4 @@
-package com.company.app.rest;
+package com.company.app.rest.services;
 
 import java.util.HashMap;
 import java.util.List;

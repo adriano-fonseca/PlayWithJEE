@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -67,6 +67,14 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+		</dependency>
+
+		<!-- WSDL WEBServic -->
+		<dependency>
+			<groupId>org.jboss.ws</groupId>
+			<artifactId>jbossws-api</artifactId>
+			<version>1.0.2.Final</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -163,6 +171,39 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
+
+				<!-- Used to generate Sweager documentation -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+					<executions>
+						<execution>
+							<id>generate-service-docs</id>
+							<phase>generate-resources</phase>
+							<configuration>
+								<doclet>com.carma.swagger.doclet.ServiceDoclet</doclet>
+								<docletArtifact>
+									<groupId>com.carma</groupId>
+									<artifactId>swagger-doclet</artifactId>
+									<version>1.0.2</version>
+								</docletArtifact>
+								<reportOutputDirectory>src/main/webapp</reportOutputDirectory>
+								<useStandardDocletOptions>false</useStandardDocletOptions>
+								<additionalparam>-apiVersion 1 -docBasePath
+									/PlayWithJavaEE/apidocs
+									-apiBasePath /PlayWithJavaEE/rest
+									-swaggerUiPath
+									${project.build.directory}
+								</additionalparam>
+							</configuration>
+							<goals>
+								<goal>javadoc</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
@@ -221,7 +262,7 @@
 			<build>
 				<plugins>
 					<plugin>
-					   <groupId>org.apache.maven.plugins</groupId>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<systemPropertyVariables>
@@ -238,11 +279,11 @@
 				<arquillian.container>managed</arquillian.container>
 				<arquillian.container.port>9174</arquillian.container.port>
 			</properties>
-			
+
 			<build>
 				<plugins>
 					<plugin>
-					   <groupId>org.apache.maven.plugins</groupId>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<systemPropertyVariables>
@@ -252,7 +293,6 @@
 					</plugin>
 				</plugins>
 			</build>
-
 		</profile>
 
 
@@ -265,7 +305,7 @@
 			<build>
 				<plugins>
 					<plugin>
-					   <groupId>org.apache.maven.plugins</groupId>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<systemPropertyVariables>
@@ -277,7 +317,7 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 		<profile>
 			<id>jboss-as-remote</id>
 			<properties>
@@ -287,7 +327,7 @@
 			<build>
 				<plugins>
 					<plugin>
-					   <groupId>org.apache.maven.plugins</groupId>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<systemPropertyVariables>

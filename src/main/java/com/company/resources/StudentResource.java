@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 
 import com.company.app.dao.HelperService;
 import com.company.app.model.Student;
-import com.company.app.rest.StudentService;
+import com.company.app.rest.services.StudentService;
 
 @Path("/students")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
