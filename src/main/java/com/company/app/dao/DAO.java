@@ -71,7 +71,7 @@ public class DAO<Bean extends BaseBean<? extends Serializable>> {
       try {
         em.flush();
         msg = new HashMap<String, String>();
-        msg.put("message", "Teacher removed!");
+        msg.put("message", "Record removed!");
       } catch (NullPointerException e) {
         // see forum
         // http://www.eclipse.org/forums/index.php/m/799970/#msg_799970
