@@ -99,16 +99,24 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Json -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.13</version>
+			<scope>compile</scope> <!-- CHANGE HERE -->
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+			<scope>compile</scope> <!-- CHANGE HERE -->
+		</dependency>
+
 		<!-- Default protocol Servelet no arquilian.xml -->
 		<dependency>
 			<groupId>org.jboss.arquillian.protocol</groupId>
 			<artifactId>arquillian-protocol-servlet</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.arquillian.container</groupId>
-			<artifactId>arquillian-container-chameleon</artifactId>
-			<version>1.0.0.Alpha6</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -119,6 +127,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.arquillian.container</groupId>
+			<artifactId>arquillian-container-chameleon</artifactId>
+			<version>1.0.0.Final-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -129,115 +143,6 @@
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
-		<plugins>
-			<!-- It does the Maven download the embedded Jboss Server -->
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>unpack</id>
-						<phase>process-test-classes</phase>
-						<goals>
-							<goal>unpack</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.jboss.as</groupId>
-									<artifactId>jboss-as-dist</artifactId>
-									<version>7.1.1.Final</version>
-									<type>zip</type>
-									<overWrite>false</overWrite>
-									<outputDirectory>target</outputDirectory>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
-			</plugin>
-		</plugins>
-		<pluginManagement>
-			<plugins>
-
-				<!-- Used to generate Sweager documentation -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.9.1</version>
-					<executions>
-						<execution>
-							<id>generate-service-docs</id>
-							<phase>generate-resources</phase>
-							<configuration>
-								<doclet>com.carma.swagger.doclet.ServiceDoclet</doclet>
-								<docletArtifact>
-									<groupId>com.carma</groupId>
-									<artifactId>swagger-doclet</artifactId>
-									<version>1.0.2</version>
-								</docletArtifact>
-								<reportOutputDirectory>src/main/webapp</reportOutputDirectory>
-								<useStandardDocletOptions>false</useStandardDocletOptions>
-								<additionalparam>-apiVersion 1 -docBasePath
-									/PlayWithJavaEE/apidocs
-									-apiBasePath /PlayWithJavaEE/rest
-									-swaggerUiPath
-									${project.build.directory}
-								</additionalparam>
-							</configuration>
-							<goals>
-								<goal>javadoc</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-dependency-plugin
-										</artifactId>
-										<versionRange>
-											[2.8,)
-										</versionRange>
-										<goals>
-											<goal>unpack</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 	<dependencyManagement>
@@ -253,91 +158,32 @@
 	</dependencyManagement>
 
 	<profiles>
-		<profile>
-			<id>jboss-remote-procergs</id>
-			<properties>
-				<arquillian.container>remote</arquillian.container>
-				<arquillian.container.port>9999</arquillian.container.port>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<systemPropertyVariables>
-								<arquillian.launch>chameleon</arquillian.launch>
-							</systemPropertyVariables>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>jboss-managed-procergs</id>
-			<properties>
-				<arquillian.container>managed</arquillian.container>
-				<arquillian.container.port>9174</arquillian.container.port>
-			</properties>
-
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<systemPropertyVariables>
-								<arquillian.launch>chameleon</arquillian.launch>
-							</systemPropertyVariables>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
+		<!-- <profile> <id>jboss-remote-procergs</id> <properties> <arquillian.container>remote</arquillian.container> 
+			<arquillian.container.port>9999</arquillian.container.port> </properties> 
+			<build> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
+			<configuration> <systemPropertyVariables> <arquillian.launch>chameleon</arquillian.launch> 
+			</systemPropertyVariables> </configuration> </plugin> </plugins> </build> 
+			</profile> <profile> <id>jboss-managed-procergs</id> <properties> <arquillian.container>managed</arquillian.container> 
+			<arquillian.container.port>9174</arquillian.container.port> </properties> 
+			<build> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
+			<configuration> <systemPropertyVariables> <arquillian.launch>chameleon</arquillian.launch> 
+			</systemPropertyVariables> </configuration> </plugin> </plugins> </build> 
+			</profile> -->
 
 		<profile>
-			<id>jboss-as-managed</id>
+			<id>wildfly-as-managed</id>
 			<properties>
-				<arquillian.container.port>9174</arquillian.container.port>
+				<arquillian.container.port>10090</arquillian.container.port>
 				<arquillian.container>managed</arquillian.container>
 			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<systemPropertyVariables>
-								<arquillian.launch>chameleon2</arquillian.launch>
-								<!-- <arq.container.chameleon.configuration.chameleonTarget>org.jboss.as:jboss-as-dist:7.2.0:managed</arq.container.chameleon.configuration.chameleonTarget> -->
-							</systemPropertyVariables>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 
 		<profile>
-			<id>jboss-as-remote</id>
+			<id>wildfly-as-remote</id>
 			<properties>
-				<arquillian.container.port>9999</arquillian.container.port>
+				<arquillian.container.port>9990</arquillian.container.port>
 				<arquillian.container>remote</arquillian.container>
 			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<systemPropertyVariables>
-								<arquillian.launch>chameleon2</arquillian.launch>
-								<!-- <arq.container.chameleon.configuration.chameleonTarget>org.jboss.as:jboss-as-dist:7.2.0:managed</arq.container.chameleon.configuration.chameleonTarget> -->
-							</systemPropertyVariables>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 	</profiles>
 </project>
