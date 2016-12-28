@@ -13,6 +13,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.persistence>1.0.0.Alpha7</version.persistence>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 	</properties>
 
 
@@ -104,13 +106,13 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
-			<scope>compile</scope> <!-- CHANGE HERE -->
+			<scope>provided</scope> <!-- CHANGE HERE -->
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
-			<scope>compile</scope> <!-- CHANGE HERE -->
+			<scope>provided</scope> <!-- CHANGE HERE -->
 		</dependency>
 
 		<!-- Default protocol Servelet no arquilian.xml -->
@@ -120,29 +122,40 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.procergs.acr</groupId>
-			<artifactId>procergs-arquillian-container</artifactId>
-			<version>1.0</version>
-			<scope>test</scope>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.procergs.acr</groupId> -->
+		<!-- <artifactId>procergs-arquillian-container</artifactId> -->
+		<!-- <version>1.0</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>org.arquillian.container</groupId>
 			<artifactId>arquillian-container-chameleon</artifactId>
-			<version>1.0.0.Final-SNAPSHOT</version>
+			<version>1.0.0.Alpha7</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>PlayEjbRest</finalName>
+		<finalName>PlayJavaEE</finalName>
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<dependencyManagement>
