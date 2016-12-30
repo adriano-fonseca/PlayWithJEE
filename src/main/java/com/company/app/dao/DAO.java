@@ -67,6 +67,13 @@ public class DAO<Bean extends BaseBean<? extends Serializable>> {
     
     try {
       Bean entityFind = (Bean) em.find(t.getClass(), conteudoPk);
+      if(entityFind==null){
+    	  msg = new HashMap<String, String>();
+    	  msg.put("message","Record not found.");
+          if (msg != null) {
+            throw new RecordNotFoundException(msg);
+          }
+      }
       em.remove(entityFind);
       try {
         em.flush();

@@ -3,11 +3,13 @@ package com.company.app.rest.services;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
 import com.company.app.dao.TeacherDAO;
 import com.company.app.model.Teacher;
 
+@Model
 public class TeacherService {
   @Inject
   TeacherDAO teacherDAO;

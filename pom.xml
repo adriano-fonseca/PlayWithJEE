@@ -4,7 +4,7 @@
 
 	<groupId>com.company.app</groupId>
 	<artifactId>PlayWithJavaEE</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.3</version>
 	<packaging>war</packaging>
 
 	<name>PlayWithJavaEE</name>
@@ -135,6 +135,12 @@
 			<version>1.0.0.Alpha7</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>com.spotify</groupId> -->
+		<!-- <artifactId>docker-maven-plugin</artifactId> -->
+		<!-- <version>0.4.13</version> -->
+		<!-- </dependency> -->
 	</dependencies>
 
 	<build>
@@ -153,6 +159,33 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.12</version>
+				<configuration>
+					<serverId>docker-hub</serverId>
+					<imageName>adrianofonseca/app</imageName>
+					
+<!-- 					<serverId>docker-local</serverId> -->
+<!-- 					<imageName>docker.adriano.local/app</imageName> -->
+					<baseImage>wildfly-app</baseImage>
+					<!-- <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint> -->
+					<!-- copy the service's jar file from target into the root directory 
+						of the image -->
+					<resources>
+						<resource>
+							<targetPath>/opt/jboss/wildfly/standalone/deployments</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.war</include>
+						</resource>
+					</resources>
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+						<imageTag>latest</imageTag>
+					</imageTags>
 				</configuration>
 			</plugin>
 		</plugins>
