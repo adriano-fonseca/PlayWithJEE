@@ -75,14 +75,14 @@
         </property>
 	</extension>
 
-	<container qualifier="wildfly-docker" default="true">
+	<container qualifier="wildfly-docker" default="false">
 		<configuration>
 			<property name="chameleonTarget">wildfly:9.0.0.Final:remote</property>
 			<property name="username">admin</property>
 			<property name="password">Admin#70365</property>
 		</configuration>
 	</container>
-	<container qualifier="wildfly-docker-image" default="false">
+	<container qualifier="wildfly-docker-image" default="true">
 		<configuration>
 			<property name="containerlessDocker">wildfly-image</property>
 			<property name="embeddedPort">8080</property>

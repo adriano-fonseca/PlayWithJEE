@@ -13,8 +13,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.persistence>1.0.0.Alpha7</version.persistence>
-		<version.arquillian_cube>1.0.0.Alpha7</version.arquillian_cube>
+		<version.arquillian_cube>1.0.0.Alpha15</version.arquillian_cube>
 		<version.arquillian_chameleon>1.0.0.Alpha7</version.arquillian_chameleon>
+		<version.jboss.javaee-7_api>1.1.0.Beta1</version.jboss.javaee-7_api>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 	</properties>
@@ -37,6 +38,7 @@
 			<version>${version.persistence}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
 			<artifactId>arquillian-persistence-dbunit</artifactId>
@@ -88,12 +90,22 @@
 			<version>5.0.3.Final</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<scope>provided</scope>
 			<version>5.0.3.Final</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec/jboss-javaee-7.0 -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.spec</groupId> -->
+		<!-- <artifactId>jboss-javaee-7.0</artifactId> -->
+		<!-- <version>${version.jboss.javaee-7_api}</version> -->
+		<!-- <type>pom</type> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
@@ -117,11 +129,14 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.connectors/jersey-apache-connector -->
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
+			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>1.12</version>
+			<version>2.25</version>
 		</dependency>
+
+
 
 		<!-- Default protocol Servelet no arquilian.xml -->
 		<dependency>
@@ -129,6 +144,12 @@
 			<artifactId>arquillian-protocol-servlet</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		 <dependency>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
 		<!-- <dependency> -->
 		<!-- <groupId>com.procergs.acr</groupId> -->
@@ -137,6 +158,26 @@
 		<!-- <scope>test</scope> -->
 		<!-- </dependency> -->
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.1.11.Final</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+                 <groupId>org.jboss.spec</groupId>
+                 <artifactId>jboss-javaee-7.0</artifactId>
+                 <version>${version.jboss.javaee-7_api}</version>
+                 <scope>import</scope>
+                 <type>pom</type>
+            </dependency>
+		</dependencies>
+	</dependencyManagement>
+
 
 	<build>
 		<finalName>PlayJavaEE</finalName>
@@ -183,20 +224,21 @@
 					</imageTags>
 				</configuration>
 			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <!--  Force Jersey to be used when RestEasy is auto-discovered. Jersey is required by docker-java -->
+                        <javax.ws.rs.ext.RuntimeDelegate>org.glassfish.jersey.internal.RuntimeDelegateImpl</javax.ws.rs.ext.RuntimeDelegate>
+                        <arquillian.launch>${launch}</arquillian.launch>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.jboss.arquillian</groupId>
-				<artifactId>arquillian-bom</artifactId>
-				<version>1.1.11.Final</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<profiles>
 		<!-- <profile> <id>jboss-remote-procergs</id> <properties> <arquillian.container>remote</arquillian.container> 
