@@ -4,7 +4,7 @@
 
 	<groupId>com.company.app</groupId>
 	<artifactId>PlayWithJavaEE</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<packaging>war</packaging>
 
 	<name>PlayWithJavaEE</name>
@@ -13,6 +13,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.persistence>1.0.0.Alpha7</version.persistence>
+		<version.arquillian_cube>1.0.0.Alpha7</version.arquillian_cube>
+		<version.arquillian_chameleon>1.0.0.Alpha7</version.arquillian_chameleon>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 	</properties>
@@ -106,13 +108,19 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
-			<scope>provided</scope> <!-- CHANGE HERE -->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
-			<scope>provided</scope> <!-- CHANGE HERE -->
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.12</version>
 		</dependency>
 
 		<!-- Default protocol Servelet no arquilian.xml -->
@@ -127,19 +135,6 @@
 		<!-- <artifactId>procergs-arquillian-container</artifactId> -->
 		<!-- <version>1.0</version> -->
 		<!-- <scope>test</scope> -->
-		<!-- </dependency> -->
-
-		<dependency>
-			<groupId>org.arquillian.container</groupId>
-			<artifactId>arquillian-container-chameleon</artifactId>
-			<version>1.0.0.Alpha7</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>com.spotify</groupId> -->
-		<!-- <artifactId>docker-maven-plugin</artifactId> -->
-		<!-- <version>0.4.13</version> -->
 		<!-- </dependency> -->
 	</dependencies>
 
@@ -168,9 +163,9 @@
 				<configuration>
 					<serverId>docker-hub</serverId>
 					<imageName>adrianofonseca/app</imageName>
-					
-<!-- 					<serverId>docker-local</serverId> -->
-<!-- 					<imageName>docker.adriano.local/app</imageName> -->
+
+					<!-- <serverId>docker-local</serverId> -->
+					<!-- <imageName>docker.adriano.local/app</imageName> -->
 					<baseImage>wildfly-app</baseImage>
 					<!-- <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint> -->
 					<!-- copy the service's jar file from target into the root directory 
@@ -222,6 +217,14 @@
 				<arquillian.container.port>10090</arquillian.container.port>
 				<arquillian.container>managed</arquillian.container>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.arquillian.container</groupId>
+					<artifactId>arquillian-container-chameleon</artifactId>
+					<version>${version.arquillian_chameleon}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 
 		<profile>
@@ -230,6 +233,55 @@
 				<arquillian.container.port>9990</arquillian.container.port>
 				<arquillian.container>remote</arquillian.container>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.arquillian.container</groupId>
+					<artifactId>arquillian-container-chameleon</artifactId>
+					<version>${version.arquillian_chameleon}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>wildfly-docker</id>
+			<properties>
+				<launch>wildfly-docker</launch>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.arquillian.cube</groupId>
+					<artifactId>arquillian-cube-docker</artifactId>
+					<version>${version.arquillian_cube}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.arquillian.container</groupId>
+					<artifactId>arquillian-container-chameleon</artifactId>
+					<version>${version.arquillian_chameleon}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>wildfly-docker-image</id>
+			<properties>
+				<launch>wildfly-docker-image</launch>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.arquillian.cube</groupId>
+					<artifactId>arquillian-cube-docker</artifactId>
+					<version>${version.arquillian_cube}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.arquillian.cube</groupId>
+					<artifactId>arquillian-cube-containerless</artifactId>
+					<version>${version.arquillian_cube}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 	</profiles>
 </project>

@@ -1,0 +1,2 @@
+FROM jboss/wildfly:9.0.0.Final
+COPY ${deployableFilename} /opt/jboss/wildfly/standalone/deployments/${deployableFilename}

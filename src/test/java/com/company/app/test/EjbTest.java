@@ -14,10 +14,7 @@ import org.hibernate.type.Type;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenResolverSystem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,32 +37,32 @@ public class EjbTest {
 
  // Creating a .war from nothing starting from package of the project
 //  @Deployment 
-  public static WebArchive createDeployment3() {
-    MavenResolverSystem resolver = Maven.resolver();
-    WebArchive ejbWar = ShrinkWrap.create(WebArchive.class, "ise-rnbd.war").addPackages(true, "com.procergs.ise");
-    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("com.procergs.acr:PRArqjava-core").withTransitivity().asFile());
-    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("com.procergs.acr:PRAutentica").withTransitivity().asFile());
-    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("com.procergs.acr:PRSoeweb").withTransitivity().asFile());
-    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("com.procergs.acr:PRUtil_j2ee").withTransitivity().asFile());
-    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("net.sf.ehcache:ehcache-core:1.7.2").withTransitivity().asFile());
-    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("org.jdom:jdom:1.1.3").withTransitivity().asFile());
-    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("org.springframework:spring-orm:2.5.1").withoutTransitivity().asFile());
-
-//    ejbWar.deleteClasses(SituacaoTurmaNaInclusaoTest.class, DiarioClasseTest.class, GeraNotificacaoBaseTest.class, EjbTest.class);
-    ejbWar.addPackages(true, "org.joda.time");
-    ejbWar.addPackages(true, "net.sf.jpacriteria");
-    ejbWar.addPackages(true, "com.procergs.arqjava.auditoria");
-//    ejbWar.addClass(JSFUtil.class);
-
-    ejbWar.addAsWebInfResource("test-web.xml", "web.xml").addAsResource("SecureChain.xml", "SecureChain.xml").addAsResource("SecureChain.xml", "com/procergs/ise/estabelecimento/SecureChain.xml").addAsResource("SecureChain.xml", "com/procergs/ise/alunocurso/SecureChain.xml").addAsResource("SecureChain.xml", "com/procergs/ise/ws/firesc/SecureChain.xml").addAsWebInfResource("test-faces-config.xml", "faces-config.xml")
-        .addAsWebInfResource("jboss-deployment-structure.xml", "META-INF/jboss-deployment-structure.xml");
-    ejbWar.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-
-    .addClass(EjbTest.class).addPackages(true, "com.procergs.util.autentica");
-    ejbWar.addAsResource("h2-test-persistence.xml", "META-INF/persistence.xml");
-    System.out.println(ejbWar.toString(true));
-    return ejbWar;
-  }
+//  public static WebArchive createDeployment3() {
+//    MavenResolverSystem resolver = Maven.resolver();
+//    WebArchive ejbWar = ShrinkWrap.create(WebArchive.class, "ise-rnbd.war").addPackages(true, "com.procergs.ise");
+//    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("com.procergs.acr:PRArqjava-core").withTransitivity().asFile());
+//    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("com.procergs.acr:PRAutentica").withTransitivity().asFile());
+//    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("com.procergs.acr:PRSoeweb").withTransitivity().asFile());
+//    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("com.procergs.acr:PRUtil_j2ee").withTransitivity().asFile());
+//    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("net.sf.ehcache:ehcache-core:1.7.2").withTransitivity().asFile());
+//    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("org.jdom:jdom:1.1.3").withTransitivity().asFile());
+//    ejbWar.addAsLibraries(resolver.loadPomFromFile("pom.xml").resolve("org.springframework:spring-orm:2.5.1").withoutTransitivity().asFile());
+//
+////    ejbWar.deleteClasses(SituacaoTurmaNaInclusaoTest.class, DiarioClasseTest.class, GeraNotificacaoBaseTest.class, EjbTest.class);
+//    ejbWar.addPackages(true, "org.joda.time");
+//    ejbWar.addPackages(true, "net.sf.jpacriteria");
+//    ejbWar.addPackages(true, "com.procergs.arqjava.auditoria");
+////    ejbWar.addClass(JSFUtil.class);
+//
+//    ejbWar.addAsWebInfResource("test-web.xml", "web.xml").addAsResource("SecureChain.xml", "SecureChain.xml").addAsResource("SecureChain.xml", "com/procergs/ise/estabelecimento/SecureChain.xml").addAsResource("SecureChain.xml", "com/procergs/ise/alunocurso/SecureChain.xml").addAsResource("SecureChain.xml", "com/procergs/ise/ws/firesc/SecureChain.xml").addAsWebInfResource("test-faces-config.xml", "faces-config.xml")
+//        .addAsWebInfResource("jboss-deployment-structure.xml", "META-INF/jboss-deployment-structure.xml");
+//    ejbWar.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+//
+//    .addClass(EjbTest.class).addPackages(true, "com.procergs.util.autentica");
+//    ejbWar.addAsResource("h2-test-persistence.xml", "META-INF/persistence.xml");
+//    System.out.println(ejbWar.toString(true));
+//    return ejbWar;
+//  }
 
   //  Create deploy from complete .ear of applicarion
   //  @Deployment
