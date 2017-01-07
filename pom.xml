@@ -13,12 +13,33 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.persistence>1.0.0.Alpha7</version.persistence>
+		<version.arquillian_core>1.1.8.Final</version.arquillian_core>
 		<version.arquillian_cube>1.0.0.Alpha15</version.arquillian_cube>
 		<version.arquillian_chameleon>1.0.0.Alpha7</version.arquillian_chameleon>
 		<version.jboss.javaee-7_api>1.1.0.Beta1</version.jboss.javaee-7_api>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>${version.arquillian_core}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-7.0</artifactId>
+				<version>${version.jboss.javaee-7_api}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 
 
 	<dependencies>
@@ -65,7 +86,20 @@
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
-			<version>1.0-SP1</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!-- Jaxrs -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.json</groupId>
+			<artifactId>jboss-json-api_1.0_spec</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- LOG4J -->
@@ -99,21 +133,21 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.jboss.spec/jboss-javaee-7.0 -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.jboss.spec</groupId> -->
-		<!-- <artifactId>jboss-javaee-7.0</artifactId> -->
-		<!-- <version>${version.jboss.javaee-7_api}</version> -->
-		<!-- <type>pom</type> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
-
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<version>1.0.0.Final</version>
+			<artifactId>jboss-javaee-7.0</artifactId>
+			<version>${version.jboss.javaee-7_api}</version>
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.spec</groupId> -->
+		<!-- <artifactId>jboss-javaee-6.0</artifactId> -->
+		<!-- <version>1.0.0.Final</version> -->
+		<!-- <type>pom</type> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
 
 		<!-- Json -->
 		<dependency>
@@ -130,12 +164,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.connectors/jersey-apache-connector -->
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>2.25</version>
-		</dependency>
-
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.jersey.core</groupId> -->
+		<!-- <artifactId>jersey-client</artifactId> -->
+		<!-- <version>2.25</version> -->
+		<!-- </dependency> -->
 
 
 		<!-- Default protocol Servelet no arquilian.xml -->
@@ -144,12 +177,6 @@
 			<artifactId>arquillian-protocol-servlet</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		 <dependency>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
 		<!-- <dependency> -->
 		<!-- <groupId>com.procergs.acr</groupId> -->
@@ -158,25 +185,6 @@
 		<!-- <scope>test</scope> -->
 		<!-- </dependency> -->
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.jboss.arquillian</groupId>
-				<artifactId>arquillian-bom</artifactId>
-				<version>1.1.11.Final</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-                 <groupId>org.jboss.spec</groupId>
-                 <artifactId>jboss-javaee-7.0</artifactId>
-                 <version>${version.jboss.javaee-7_api}</version>
-                 <scope>import</scope>
-                 <type>pom</type>
-            </dependency>
-		</dependencies>
-	</dependencyManagement>
 
 
 	<build>
@@ -225,17 +233,18 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <!--  Force Jersey to be used when RestEasy is auto-discovered. Jersey is required by docker-java -->
-                        <javax.ws.rs.ext.RuntimeDelegate>org.glassfish.jersey.internal.RuntimeDelegateImpl</javax.ws.rs.ext.RuntimeDelegate>
-                        <arquillian.launch>${launch}</arquillian.launch>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<systemPropertyVariables>
+						<!-- Force Jersey to be used when RestEasy is auto-discovered. Jersey 
+							is required by docker-java -->
+						<javax.ws.rs.ext.RuntimeDelegate>org.glassfish.jersey.internal.RuntimeDelegateImpl</javax.ws.rs.ext.RuntimeDelegate>
+						<arquillian.launch>${launch}</arquillian.launch>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
