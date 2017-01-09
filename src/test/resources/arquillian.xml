@@ -65,14 +65,14 @@
                 dockerfileLocation: src/test/resources/wildfly
                 noCache: true
                 remove: true
-              portBindings: [8080->8080/tcp, 9991->9990/tcp]
+              portBindings: [8082->8080/tcp, 9991->9990/tcp]
               
             wildfly-image:
               buildImage:
                 dockerfileLocation: src/test/resources/wildfly-image
                 noCache: true
                 remove: true
-              portBindings: [8080->8080/tcp]
+              portBindings: [8082->8080/tcp]
         </property>
 	</extension>
 
@@ -86,7 +86,7 @@
 	<container qualifier="wildfly-docker-image" default="true">
 		<configuration>
 			<property name="containerlessDocker">wildfly-image</property>
-			<property name="embeddedPort">8080</property>
+			<property name="embeddedPort">8082</property>
 		</configuration>
 	</container>
 
