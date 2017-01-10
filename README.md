@@ -66,3 +66,6 @@ Thas is what you need to put in your standalone xml:
                     <driver name="postgresql-driver" module="org.postgresql"/>
                 </drivers>
  ```
+ 
+## Usage
+
