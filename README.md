@@ -1,8 +1,10 @@
 # JAVA EE 6 Technologies and Unit and Integrating Tests
 
 This project aim is to be a proof of concept of use of some frameworks, usually used to develop enterprise systems.
-The idea is to test JPA, EJB, Hibernate in order to produce WebServices Rest and SOAP. For this I intend use CDI and other concepts and maybe construct a simple API using Swaeger.
-It is inside o scope of this project build of RESTFul API that respect HATEOAS (Hypermedia as the Engine of Application State)
+The idea is to test JPA, EJB, Hibernate in order to produce WebServices Rest and SOAP
+The RESTFul API implemented in this project respects Richardson Maturity Model (HATEOAS)Level 2.
+
+More about RichardsonMaturity Model [here](https://martinfowler.com/articles/richardsonMaturityModel.html) 
 
 ## WebServices REST
 
@@ -10,11 +12,130 @@ To access the services you shall use http://localhost:8080/PlayWithJavaEE/rest/{
 
 # Testing
 
-I have configured unit and integration tests through use of JUnit and Arquillian.
+I have configured integration tests through Arquillian. There are a few ways to run this tests, each one has a profile in pom.xml, as follow:
 
-For configure the data source from jboss 7.1.1 embedded, you will follow the steps bellow:
+```xml
+		<profile>
+			<id>wildfly-as-managed</id>
+			<properties>
+				<arquillian.container.port>10090</arquillian.container.port>
+				<arquillian.container>managed</arquillian.container>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.arquillian.container</groupId>
+					<artifactId>arquillian-container-chameleon</artifactId>
+					<version>${version.arquillian_chameleon}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>wildfly-as-remote</id>
+			<properties>
+				<arquillian.container.port>9990</arquillian.container.port>
+				<arquillian.container>remote</arquillian.container>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.arquillian.container</groupId>
+					<artifactId>arquillian-container-chameleon</artifactId>
+					<version>${version.arquillian_chameleon}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>wildfly-docker</id>
+			<properties>
+				<launch>wildfly-docker</launch>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.arquillian.cube</groupId>
+					<artifactId>arquillian-cube-docker</artifactId>
+					<version>${version.arquillian_cube}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.arquillian.container</groupId>
+					<artifactId>arquillian-container-chameleon</artifactId>
+					<version>${version.arquillian_chameleon}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>wildfly-docker-image</id>
+			<properties>
+				<launch>wildfly-docker-image</launch>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.arquillian.cube</groupId>
+					<artifactId>arquillian-cube-docker</artifactId>
+					<version>${version.arquillian_cube}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.arquillian.cube</groupId>
+					<artifactId>arquillian-cube-containerless</artifactId>
+					<version>${version.arquillian_cube}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+```
+Which one of them has a container qualifier associated in arquillian.xml:
 
-1. Create the path $JBOSS_HOME/modules/org/postgresql/main. The modules/org part should already exist, make directories for the rest.
+```xml
+    <container qualifier="chameleon" default="false">
+		<configuration>
+			<property name="chameleonTarget">wildfly:9.0.0.Final:${arquillian.container}</property>
+			<property name="outputToConsole">true</property>
+			<property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=256m -Djboss.bind.address=localhost
+                -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
+                -Djboss.socket.binding.port-offset=100
+                -Djboss.management.native.port=9990
+                -Duser.country=BR -Duser.language=pt -Duser.timezone=GMT-03:00
+            </property>
+			<!-- as portas sao diferentes entre o managed(usa offset para subir em 
+				porta diferente) e remote (porta 9999) -->
+			<property name="managementPort">${arquillian.container.port}</property>
+		</configuration>
+	</container>
+	<container qualifier="wildfly-docker" default="false">
+		<configuration>
+			<property name="chameleonTarget">wildfly:9.0.0.Final:remote</property>
+			<property name="username">admin</property>
+			<property name="password">Admin#70365</property>
+		</configuration>
+	</container>
+	<container qualifier="wildfly-docker-image" default="true">
+		<configuration>
+			<property name="containerlessDocker">wildfly-image</property>
+			<property name="embeddedPort">8082</property>
+		</configuration>
+	</container>
+```
+
+Just one of them can be marked as default, up there the Arquillian is configured to run tests against a container. In that case Arquillian will use Chameleon conteiner to run tests remotely in a wildfly that runs in a docker container. 
+
+The image docker which receives the application is published in docker hub as adrianofonseca/wildfly:9.0.0.Final. This is basecally the official wildfly image I just have added the iproute which provides ss command used by arquillian-cube.
+
+To alternate between the just change the profile in the maven command, for instance, if you want that maven download the wildfly, start it and run the tests, just past the profile wildfly-as-managed:
+
+**mvn clean package -Pwildfly-as-managed** (but, remember the chameleon qualifier must be marked as default true on arquillian.xml)
+
+**PS:** to pay attention in the port number among the wildfly version.
+
+
+#Data Base Configuration
+
+
+For configure the data source from wildfly, you will follow the steps bellow:
+
+1. Create the path $WILDFLY_HOME/modules/org/postgresql/main. The modules/org part should already exist, make directories for the rest.
 
 2. In $JBOSS_HOME/modules/org/postgresql/main/module.xml with the following content, changing the resource-root entry for the PgJDBC driver to refer to the driver you wish to use.
 
@@ -55,7 +176,7 @@ Thas is what you need to put in your standalone xml:
                     </pool>
                     <security>
                         <user-name>app</user-name>
-                        <password>password</password>
+                        <password>app</password>
                     </security>
                     <statement>
                         <prepared-statement-cache-size>32</prepared-statement-cache-size>
@@ -66,6 +187,3 @@ Thas is what you need to put in your standalone xml:
                     <driver name="postgresql-driver" module="org.postgresql"/>
                 </drivers>
  ```
- 
-## Usage
-

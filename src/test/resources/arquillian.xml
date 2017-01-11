@@ -20,6 +20,7 @@
 		<property name="managementPort">9174</property> </configuration> </container> 
 		<container qualifier="jboss-remote"> <configuration> <property name="managementAddress">127.0.0.1</property> 
 		<property name="managementPort">9999</property> </configuration> </container> -->
+	<!-- 
 	<container qualifier="chameleon">
 		<configuration>
 			<property name="chameleonContainerConfigurationFile">procergs.yaml</property>
@@ -32,30 +33,10 @@
                 -Duser.country=BR -Duser.language=pt -Duser.timezone=GMT-03:00
             </property>
 			<property name="allowConnectingToRunningServer">true</property>
-			<!-- as portas sao diferentes entre o managed(usa offset para subir em 
-				porta diferente) e remote (porta 9999) -->
 			<property name="managementPort">${arquillian.container.port}</property>
 		</configuration>
-	</container>
-
-	<container qualifier="chameleon2" default="false">
-		<configuration>
-			<property name="chameleonTarget">wildfly:9.0.0.Final:${arquillian.container}</property>
-			<property name="outputToConsole">true</property>
-			<property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=256m -Djboss.bind.address=localhost
-                -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
-                -Djboss.socket.binding.port-offset=100
-                -Djboss.management.native.port=9990
-                -Duser.country=BR -Duser.language=pt -Duser.timezone=GMT-03:00
-            </property>
-			<!-- as portas sao diferentes entre o managed(usa offset para subir em 
-				porta diferente) e remote (porta 9999) -->
-			<property name="managementPort">${arquillian.container.port}</property>
-		</configuration>
-	</container>
-
-
-
+	</container> -->
+	
 	<extension qualifier="docker">
 		<property name="serverVersion">1.12</property>
 		<property name="definitionFormat">CUBE</property>
@@ -76,6 +57,21 @@
         </property>
 	</extension>
 
+	<container qualifier="chameleon2" default="false">
+		<configuration>
+			<property name="chameleonTarget">wildfly:9.0.0.Final:${arquillian.container}</property>
+			<property name="outputToConsole">true</property>
+			<property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=256m -Djboss.bind.address=localhost
+                -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
+                -Djboss.socket.binding.port-offset=100
+                -Djboss.management.native.port=9990
+                -Duser.country=BR -Duser.language=pt -Duser.timezone=GMT-03:00
+            </property>
+			<!-- as portas sao diferentes entre o managed(usa offset para subir em 
+				porta diferente) e remote (porta 9999) -->
+			<property name="managementPort">${arquillian.container.port}</property>
+		</configuration>
+	</container>
 	<container qualifier="wildfly-docker" default="false">
 		<configuration>
 			<property name="chameleonTarget">wildfly:9.0.0.Final:remote</property>
