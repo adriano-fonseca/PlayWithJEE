@@ -18,7 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "TEACHER")
-@JsonIgnoreProperties({ "listaStudentSchoolGroup", "schoolGroupList", "id"})
+@JsonIgnoreProperties({ "listaStudentSchoolGroup", "id"})
 public class Teacher extends BaseBean<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,9 +31,6 @@ public class Teacher extends BaseBean<Long> implements Serializable {
 
 	@Column(name = "NAME_TEACHER")
 	private String name;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-	private List<SchoolGroup> schoolGroupList;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
 	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
@@ -53,24 +50,8 @@ public class Teacher extends BaseBean<Long> implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public List<SchoolGroup> getSchoolGroupList() {
-    return schoolGroupList;
-  }
 
-  public void setSchoolGroupList(List<SchoolGroup> schoolGroupList) {
-    this.schoolGroupList = schoolGroupList;
-  }
-
-  public List<StudentSchoolGroup> getListaStudentSchoolGroup() {
-    return listaStudentSchoolGroup;
-  }
-
-  public void setListaStudentSchoolGroup(List<StudentSchoolGroup> listaStudentSchoolGroup) {
-    this.listaStudentSchoolGroup = listaStudentSchoolGroup;
-  }
-
-  @Override
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -95,9 +76,9 @@ public class Teacher extends BaseBean<Long> implements Serializable {
 		return true;
 	}
 
-  @Override
-  public Long getId() {
-    // TODO Auto-generated method stub
-    return this.idTeacher;
-  }
+	@Override
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.idTeacher;
+	}
 }

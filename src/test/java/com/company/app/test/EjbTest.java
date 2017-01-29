@@ -127,17 +127,17 @@ public class EjbTest {
   @Test
   public void shouldFailStudentNotPersisted() {
     Student student = new Student();
-    student.setNameStudent("Adriano Fonseca");
+    student.setName("Adriano Fonseca");
     Calendar birthDay = Calendar.getInstance();
     birthDay.set(1986, 6, 23); //23/07/1986
-    student.setBirthDayStudent(birthDay);
+    student.setBirthDay(birthDay);
     studentDAO.add(student);
 
     Student student2 = new Student();
-    student.setNameStudent("Suelen Torres");
+    student.setName("Suelen Torres");
     Calendar birthDay2 = Calendar.getInstance();
     birthDay2.set(1986, 6, 04); //23/07/1986
-    student.setBirthDayStudent(birthDay2);
+    student.setBirthDay(birthDay2);
     studentDAO.add(student2);
 
     List<Student> list = studentDAO.list();

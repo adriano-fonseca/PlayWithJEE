@@ -21,7 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "STUDENT")
-@JsonIgnoreProperties({ "listaStudentClass", "id"})
+@JsonIgnoreProperties({ "listaStudentSchoolGroup", "id"})
 public class Student extends BaseBean<Long>
 implements Serializable {
 
@@ -35,13 +35,29 @@ implements Serializable {
 	private Long idStudent;
 
 	@Column(name = "NAME_STUDENT")
-	private String nameStudent;
+	private String name;
 
 	@Temporal(TemporalType.DATE)
-	private Calendar birthDayStudent;
+	private Calendar birthDay;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Calendar getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(Calendar birthDay) {
+		this.birthDay = birthDay;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
-	private List<StudentSchoolGroup> listaStudentClass = new ArrayList<StudentSchoolGroup>();
+	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
 
 	public Long getIdStudent() {
 		return idStudent;
@@ -51,22 +67,7 @@ implements Serializable {
 		this.idStudent = idStudent;
 	}
 
-	public String getNameStudent() {
-		return nameStudent;
-	}
-
-	public void setNameStudent(String nameStudent) {
-		this.nameStudent = nameStudent;
-	}
-
-	public Calendar getBirthDayStudent() {
-		return birthDayStudent;
-	}
-
-	public void setBirthDayStudent(Calendar birthDayStudent) {
-		this.birthDayStudent = birthDayStudent;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,7 +101,7 @@ implements Serializable {
 
   @Override
   public String toString() {
-    return "Student [idStudent=" + idStudent + ", nameStudent=" + nameStudent + ", birthDayStudent=" + birthDayStudent + "]";
+    return "Student [idStudent=" + idStudent + ", nameStudent=" + name + ", birthDayStudent=" + birthDay + "]";
   }
   
 }

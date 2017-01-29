@@ -28,11 +28,11 @@ public class TeacherDAO extends DAO<Teacher> {
 	  private static final Logger LOGGER = Logger.getLogger(TeacherDAO.class); 
 	  
 	  @PersistenceContext 
-	  private EntityManager em;
+	  private EntityManager entityManager;
 	  
 	  @PostConstruct
 	  public void init() {
-	    super.init(em,Teacher.class);
+	    super.init(entityManager, Teacher.class);
 	  }
 	  
   	public TeacherDTO consulta(Teacher professorED){
@@ -43,7 +43,7 @@ public class TeacherDAO extends DAO<Teacher> {
   		sqlProfessor.append("	id_funcional as idFuncional \n");
   		sqlProfessor.append("From professor  \n");
   		sqlProfessor.append("Where id_teacher = :idTeacher \n");
-  	    Session session = em.unwrap(Session.class);
+  	    Session session = entityManager.unwrap(Session.class);
   	    SQLQuery query = session.createSQLQuery(sqlProfessor.toString());
   	    query.setParameter("idTeacher", professorED.getIdTeacher());
   	    query.addScalar("idProfessor", LongType.INSTANCE);
