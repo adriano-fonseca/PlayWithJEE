@@ -72,14 +72,14 @@
 			<property name="managementPort">${arquillian.container.port}</property>
 		</configuration>
 	</container>
-	<container qualifier="wildfly-docker" default="false">
+	<container qualifier="wildfly-docker" default="true">
 		<configuration>
 			<property name="chameleonTarget">wildfly:9.0.0.Final:remote</property>
 			<property name="username">admin</property>
 			<property name="password">Admin#70365</property>
 		</configuration>
 	</container>
-	<container qualifier="wildfly-docker-image" default="true">
+	<container qualifier="wildfly-docker-image" default="false">
 		<configuration>
 			<property name="containerlessDocker">wildfly-image</property>
 			<property name="embeddedPort">8082</property>
