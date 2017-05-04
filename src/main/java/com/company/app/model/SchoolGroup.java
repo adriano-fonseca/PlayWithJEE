@@ -16,8 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "SCHOOLGROUP")
+@JsonIgnoreProperties({ "listaStudentSchoolGroup", "id"})
 public class SchoolGroup extends BaseBean<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,16 +34,16 @@ public class SchoolGroup extends BaseBean<Long> implements Serializable {
 	@Column(name = "NAME_SCHOOLGROUP")
 	private String nameSchoolGroup;
 
-	@Column(name = "ID_SCHOOL_SCHOOLGROUP")
-	private String idSchool;
+	@Column(name = "ID_SCHOOL")
+	private Long idSchool;
 
 	@Column(name = "NAME_SERIATION_SCHOOLGROUP")
 	private String nomeSerie;
 
-	@Column(name = "ID_TEACHER_SCHOOLGROUP")
+	@Column(name = "ID_TEACHER")
 	private Long idTeacher;
 
-	@Column(name = "YEAR_SCHOOLGROUP")
+	@Column(name = "YEAR")
 	private String year;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -51,7 +54,7 @@ public class SchoolGroup extends BaseBean<Long> implements Serializable {
 	@JoinColumn(name = "ID_SCHOOL", insertable = false, updatable = false)
 	private School school;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "schoolGroup")
 	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
 
 	public Long getIdSchoolGroup() {
@@ -70,11 +73,11 @@ public class SchoolGroup extends BaseBean<Long> implements Serializable {
 		this.nameSchoolGroup = nameSchoolGroup;
 	}
 
-	public String getIdSchool() {
+	public Long getIdSchool() {
 		return idSchool;
 	}
 
-	public void setIdSchool(String idSchool) {
+	public void setIdSchool(Long idSchool) {
 		this.idSchool = idSchool;
 	}
 

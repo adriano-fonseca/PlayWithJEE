@@ -18,7 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "TEACHER")
-@JsonIgnoreProperties({ "listaStudentSchoolGroup", "id"})
+@JsonIgnoreProperties({ "listaSchoolGroup", "id"})
 public class Teacher extends BaseBean<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,9 +31,9 @@ public class Teacher extends BaseBean<Long> implements Serializable {
 
 	@Column(name = "NAME_TEACHER")
 	private String name;
-
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
+	private List<SchoolGroup> listaSchoolGroup = new ArrayList<SchoolGroup>();
 
 	public Long getIdTeacher() {
 		return idTeacher;
@@ -49,6 +49,14 @@ public class Teacher extends BaseBean<Long> implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<SchoolGroup> getListaSchoolGroup() {
+		return listaSchoolGroup;
+	}
+
+	public void setListaSchoolGroup(List<SchoolGroup> listaSchoolGroup) {
+		this.listaSchoolGroup = listaSchoolGroup;
 	}
 
 	@Override

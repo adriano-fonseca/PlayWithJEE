@@ -18,19 +18,19 @@ public class StudentSchoolGroup {
   @Column(name = "ID_STUDENT_GROUP")
   private Long idStudentGroup;
   
-  @Column(name = "ID_STUDENT")
+  @Column(name = "ID_STUDENT",insertable = false, updatable = false)
   private Long idStudent;
   
-  @Column(name = "ID_CLASS")
+  @Column(name = "ID_SCHOOLGROUP", insertable = false, updatable = false)
   private Long idClass;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ID_STUDENT", insertable = false, updatable = false)
+  @JoinColumn(name = "ID_STUDENT")
   private Student student;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ID_TEACHER", insertable = false, updatable = false)
-  private Teacher teacher;
+  @JoinColumn(name = "ID_SCHOOLGROUP")
+  private SchoolGroup schoolGroup;
 
   public Student getStudent() {
     return student;
@@ -38,14 +38,6 @@ public class StudentSchoolGroup {
 
   public void setStudent(Student student) {
     this.student = student;
-  }
-
-  public Teacher getTeacher() {
-    return teacher;
-  }
-
-  public void setTeacher(Teacher teacher) {
-    this.teacher = teacher;
   }
 
   public Long getIdStudentGroup() {
@@ -57,20 +49,20 @@ public class StudentSchoolGroup {
   }
 
   public Long getIdStudent() {
-	return idStudent;
-}
-
-public void setIdStudent(Long idStudent) {
-	this.idStudent = idStudent;
-}
-
-public Long getIdClass() {
-	return idClass;
-}
-
-public void setIdClass(Long idClass) {
-	this.idClass = idClass;
-}
+		return idStudent;
+	}
+	
+	public void setIdStudent(Long idStudent) {
+		this.idStudent = idStudent;
+	}
+	
+	public Long getIdClass() {
+		return idClass;
+	}
+	
+	public void setIdClass(Long idClass) {
+		this.idClass = idClass;
+	}
 
 @Override
   public int hashCode() {
