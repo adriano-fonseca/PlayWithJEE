@@ -243,6 +243,19 @@
 
 		<profile>
 			<id>wildfly-as-managed</id>
+			<build>
+				<plugins>
+				   <plugin>
+					  <groupId>org.apache.maven.plugins</groupId>
+					  <artifactId>maven-surefire-plugin</artifactId>
+					  <configuration>
+						 <systemPropertyVariables>
+							<arquillian.launch>chameleon2</arquillian.launch>
+						 </systemPropertyVariables>
+					  </configuration>
+				   </plugin>
+				 </plugins>
+			</build>
 			<properties>
 				<arquillian.container.port>10090</arquillian.container.port>
 				<arquillian.container>managed</arquillian.container>
@@ -259,6 +272,19 @@
 
 		<profile>
 			<id>wildfly-as-remote</id>
+			<build>
+				<plugins>
+				   <plugin>
+					  <groupId>org.apache.maven.plugins</groupId>
+					  <artifactId>maven-surefire-plugin</artifactId>
+					  <configuration>
+						 <systemPropertyVariables>
+							<arquillian.launch>chameleon2</arquillian.launch>
+						 </systemPropertyVariables>
+					  </configuration>
+				   </plugin>
+				 </plugins>
+			</build>
 			<properties>
 				<arquillian.container.port>9990</arquillian.container.port>
 				<arquillian.container>remote</arquillian.container>
@@ -275,6 +301,19 @@
 
 		<profile>
 			<id>wildfly-docker</id>
+			<build>
+				<plugins>
+				   <plugin>
+					  <groupId>org.apache.maven.plugins</groupId>
+					  <artifactId>maven-surefire-plugin</artifactId>
+					  <configuration>
+						 <systemPropertyVariables>
+							<arquillian.launch>wildfly-docker</arquillian.launch>
+						 </systemPropertyVariables>
+					  </configuration>
+				   </plugin>
+				 </plugins>
+			</build>
 			<properties>
 				<launch>wildfly-docker</launch>
 			</properties>
