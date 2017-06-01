@@ -163,6 +163,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--liquibase-->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>3.5.3</version>
+		</dependency>
+
 	</dependencies>
 
 
@@ -352,5 +359,33 @@
 				</dependency>
 			</dependencies>
 		</profile>
+
+		<profile>
+            <id>liquibase-update</id>
+            <!--<dependencies>
+                <dependency>
+            		<groupId>oracle</groupId>
+           			<artifactId>ojdbc14</artifactId>
+            		<version>10.2.0.2.0</version>
+        		</dependency>
+            </dependencies>-->
+            <build>
+                <plugins>
+                    <plugin>
+					   <groupId>org.liquibase</groupId>
+					   <artifactId>liquibase-maven-plugin</artifactId>
+					   <version>3.5.3</version>
+					   <configuration>
+					      <propertyFileWillOverride>true</propertyFileWillOverride>
+					      <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+					      <skip>false</skip>
+						  <propertyFile>src/main/resources/liquibase/${liquibase_context_name}.properties</propertyFile>
+						  <!--<password>${settings.servers}.cpj_simet_${liquibase_context_name}.${password}</password>-->
+					   </configuration>             
+					</plugin> 	
+                </plugins>
+            </build>
+        </profile>
+
 	</profiles>
 </project>
