@@ -1,4 +1,4 @@
-package com.company.infra;
+package com.company.app.infra;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -43,16 +43,16 @@ import com.company.app.model.BaseBean;
  *
  * @param <ED>
  */
-final class IseQuery<ED extends BaseBean<? extends Serializable>> {
+final class AppQuery<ED extends BaseBean<? extends Serializable>> {
   
   private final Log logger = LogFactory.getLog(getClass());
   private EntityManager em;
   
-  public IseQuery(EntityManager em) {
+  public AppQuery(EntityManager em) {
     this.em = em;
   }
   
-  final public List<ED> list(IseQueryVO iseQuery) {
+  final public List<ED> list(AppQueryVO iseQuery) {
     if (!iseQuery.isCount()) {
       Query query = buildQuery(iseQuery);
       @SuppressWarnings("unchecked")
@@ -62,7 +62,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
     return null;    
   }
 
-  final public Number count(IseQueryVO iseQuery) {
+  final public Number count(AppQueryVO iseQuery) {
     if (iseQuery.isCount()) {
       Query query = buildQuery(iseQuery);
       Object result = query.uniqueResult();
@@ -73,13 +73,13 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
   }
   
   /**
-   * Monta uma consulta HQL por meio do ED e do {@link IseQueryVO} informado
+   * Monta uma consulta HQL por meio do ED e do {@link AppQueryVO} informado
    * 
    * @param ed
    * @param iseQuery
    * @return
    */
-  private final Query buildQuery(IseQueryVO iseQuery) {
+  private final Query buildQuery(AppQueryVO iseQuery) {
     long iniMontaQuery = System.currentTimeMillis();
     @SuppressWarnings("unchecked")
 		ED ed = (ED) iseQuery.getEntity();
@@ -95,7 +95,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
     Map<String,Map<String,Object>> whereObj = new HashMap<String,Map<String,Object>>();
     /*Joins montados a partir dos atributos não nulos do ed*/
     Map<String,String> joinsObj = new HashMap<String,String>();
-    buildWhereClauseAndJoinsFromEd(ed, IseQueryVO.ROOT_ALIAS, whereObj, iseQuery, joinsObj, true);
+    buildWhereClauseAndJoinsFromEd(ed, AppQueryVO.ROOT_ALIAS, whereObj, iseQuery, joinsObj, true);
 
     StringBuilder hql = new StringBuilder(512);
     
@@ -103,18 +103,18 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
     if (projections == null || projections.isEmpty()) {
       if (iseQuery.isCount()) {
         String distinct = iseQuery.isDistinct() ? " distinct " : "";
-        projections = Collections.<String> singletonList("count(" + distinct + IseQueryVO.ROOT_ALIAS + ")");
+        projections = Collections.<String> singletonList("count(" + distinct + AppQueryVO.ROOT_ALIAS + ")");
       } else {
-        projections = Collections.<String> singletonList(IseQueryVO.ROOT_ALIAS);      
+        projections = Collections.<String> singletonList(AppQueryVO.ROOT_ALIAS);      
       }      
     }
 
     /* trata as proje��es da query, desde que n�o seja uma proje��o de count e n�o seja proje��o do pr�prio ed */
-    if(!iseQuery.isCount() && !projections.contains(IseQueryVO.ROOT_ALIAS)) {
+    if(!iseQuery.isCount() && !projections.contains(AppQueryVO.ROOT_ALIAS)) {
       List<String> newProjections = new ArrayList<String>();
       for (String projection : projections) {
-        if (!projection.startsWith(IseQueryVO.ROOT_ALIAS + "."))
-          projection = IseQueryVO.ROOT_ALIAS + "." + projection;
+        if (!projection.startsWith(AppQueryVO.ROOT_ALIAS + "."))
+          projection = AppQueryVO.ROOT_ALIAS + "." + projection;
         String[] projectionPropFirstLevel = projection.split("\\.");
         if (projectionPropFirstLevel.length > 2  && !iseQuery.isNewED())  {/* projetar somente propriedades de 1� n�vel (limita��o do Transformer) */
           if (logger.isDebugEnabled()) logger.warn("N�o � poss�vel projetar propriedades para al�m do primeiro n�vel (Limita��o do Transformer).");
@@ -130,7 +130,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
         newProjections.add(projection);
       }
       if (newProjections.isEmpty()) {
-        projections = Collections.<String> singletonList(IseQueryVO.ROOT_ALIAS);
+        projections = Collections.<String> singletonList(AppQueryVO.ROOT_ALIAS);
       } else {
         projections = newProjections;        
         if (iseQuery.isNewED()) { /*ao usar new deve ser implementado um construtor compativel com as proje��es no ed informado*/
@@ -142,7 +142,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
     }
     String distinct = iseQuery.isDistinct() && !iseQuery.isCount()/*distinct no count � feito acima*/ ? " distinct " : "";
     hql.append("select " + distinct + projections.toString().replace("[", "").replace("]", "")); 
-    hql.append(" from " + ed.getClass().getName() + " " + IseQueryVO.ROOT_ALIAS + " ");
+    hql.append(" from " + ed.getClass().getName() + " " + AppQueryVO.ROOT_ALIAS + " ");
 
     /* Join das propriedades, do tipo IseED, n�o nulas do objeto ED */  
     if (!joinsObj.isEmpty()) {
@@ -152,7 +152,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
        *        onde alias_0 representa o join ed.turmaED.
        * */
       List<String> listJoinFetch = new ArrayList<String>();
-      String joinType = iseQuery.getJoinType() == null ? IseQueryVO.JoinType.LEFT.name() : iseQuery.getJoinType().name();
+      String joinType = iseQuery.getJoinType() == null ? AppQueryVO.JoinType.LEFT.name() : iseQuery.getJoinType().name();
       /* Usa fetch no join se foi solicitado e se n�o usa Transform para proje��es espec�ficas de primeiro n�vel*/
       String fetch = !iseQuery.isCount() && !iseQuery.isNewED() && iseQuery.isFetchJoinInNotNullProperty() && !resultTransform ? " fetch " : " ";
       if (logger.isDebugEnabled()) {
@@ -195,7 +195,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
         boolean addJoin = true;
         /*substitui caminho inicial do join por alias de join j� declarado*/
         for (String joinAlias : join.split(" ")) {
-          if (joinAlias.startsWith(IseQueryVO.ROOT_ALIAS + ".")) {
+          if (joinAlias.startsWith(AppQueryVO.ROOT_ALIAS + ".")) {
             String keyJoin = joinAlias.substring(0, joinAlias.lastIndexOf("."));          
             if (keyJoin.contains(".") && joinsObj.containsKey(keyJoin)) {
               String newJoinAlias = joinsObj.get(keyJoin) + joinAlias.substring(joinAlias.lastIndexOf("."), joinAlias.length());
@@ -220,8 +220,8 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
         if (iseQuery.isBuildWhereClauseFromObject()) {
           if (whereClause.contains(".")) {
             String key = whereClause.substring(0, whereClause.lastIndexOf("."));
-            if (!key.startsWith(IseQueryVO.ROOT_ALIAS + "."))
-              key = IseQueryVO.ROOT_ALIAS + "." + key;            
+            if (!key.startsWith(AppQueryVO.ROOT_ALIAS + "."))
+              key = AppQueryVO.ROOT_ALIAS + "." + key;            
             if (key.contains(".") && joinsObj.containsKey(key)) 
               whereClause = joinsObj.get(key) + whereClause.substring(whereClause.lastIndexOf("."), whereClause.length());
           }
@@ -256,13 +256,13 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
         /* trata a propriedade usada para ordena��o. Pode ser que ela tenha um alias atribuido nos joins */
         List<String> newOrderBy = new ArrayList<String>();
         for (String order : orderBy) {
-          if (!order.startsWith(IseQueryVO.ROOT_ALIAS + ".")) {
+          if (!order.startsWith(AppQueryVO.ROOT_ALIAS + ".")) {
             if (joins == null || joins.isEmpty()) {
-              order = IseQueryVO.ROOT_ALIAS + "." + order;
+              order = AppQueryVO.ROOT_ALIAS + "." + order;
             } else if (joins != null) {
               for (String j : joins) {
                 if (j != null && !j.trim().endsWith(order.substring(0, order.lastIndexOf(".")))) {
-                  order = IseQueryVO.ROOT_ALIAS + "." + order;
+                  order = AppQueryVO.ROOT_ALIAS + "." + order;
                   break;
                 }
               }
@@ -281,7 +281,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
       /* Se nenhum 'order by' for informado ent�o ordena pelo id do ed  */
       for (Field fId : ed.getClass().getDeclaredFields()) {
         if (fId.isAnnotationPresent(Id.class)) {
-          hql.append(" order by " + IseQueryVO.ROOT_ALIAS + "." + fId.getName() + " asc ");
+          hql.append(" order by " + AppQueryVO.ROOT_ALIAS + "." + fId.getName() + " asc ");
           break;
         }
       }
@@ -346,10 +346,10 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
     return query;
   }
   
-  private void buildWhereClauseAndJoinsFromEd(ED ed, String joinED, Map<String,Map<String,Object>> where, IseQueryVO iseQuery, Map<String,String> joinsObj, boolean fillWhereClause) {
+  private void buildWhereClauseAndJoinsFromEd(ED ed, String joinED, Map<String,Map<String,Object>> where, AppQueryVO iseQuery, Map<String,String> joinsObj, boolean fillWhereClause) {
     //TODO: tratar campos EmbeddedID e Embedded/Embeddable
     if (joinED == null) 
-      joinED = IseQueryVO.ROOT_ALIAS;
+      joinED = AppQueryVO.ROOT_ALIAS;
     Object idValueFromED = null;
     boolean error = false;
     try {
@@ -369,7 +369,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
       boolean whereByIDFilled = false;
       if (fillWhereClause)
         whereByIDFilled = buildIDWhereCondition(ed, idValueFromED, joinED, where, iseQuery, joinsObj);
-      if (IseQueryVO.ROOT_ALIAS.equals(joinED) && whereByIDFilled)
+      if (AppQueryVO.ROOT_ALIAS.equals(joinED) && whereByIDFilled)
         fillWhereClause = false; /*se o id do ed ra�z estiver preenchido ent�o n�o precisa outras clausulas where*/
       for (Field field : ed.getClass().getDeclaredFields()) {
         if (isTransientOrStatic(field))
@@ -400,7 +400,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
     }
   }
  
-  private void buildWhereCondition(Field field, Object valueParam, String joinED, Map<String,Map<String,Object>> where, IseQueryVO iseQuery, Map<String,String> joinsObj) {
+  private void buildWhereCondition(Field field, Object valueParam, String joinED, Map<String,Map<String,Object>> where, AppQueryVO iseQuery, Map<String,String> joinsObj) {
     String condition = null;
     String keyParam = null;
     if (joinsObj.containsKey(joinED)) {
@@ -428,7 +428,7 @@ final class IseQuery<ED extends BaseBean<? extends Serializable>> {
     where.put(condition, Collections.<String,Object> singletonMap(keyParam, valueParam));
   }
   
-  private boolean buildIDWhereCondition(ED ed, Object idValueFromED, String joinED, Map<String,Map<String,Object>> where, IseQueryVO iseQuery, Map<String,String> joinsObj) {
+  private boolean buildIDWhereCondition(ED ed, Object idValueFromED, String joinED, Map<String,Map<String,Object>> where, AppQueryVO iseQuery, Map<String,String> joinsObj) {
     if (idValueFromED != null) {
       for (Field fieldID : ed.getClass().getDeclaredFields()) {
         if (fieldID.isAnnotationPresent(Id.class)) {

@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import com.company.app.dao.StudentSchoolGroupDAO;
 import com.company.app.dao.util.PropriedadesLista;
+import com.company.app.model.SchoolGroup;
+import com.company.app.model.Student;
 import com.company.app.model.StudentSchoolGroup;
 
 @Model
@@ -19,6 +21,8 @@ public class StudentSchoolGroupService {
   public StudentSchoolGroup find(Long idSchoolGroup) {
   	StudentSchoolGroup studentSchoolGroup = new StudentSchoolGroup();
   	studentSchoolGroup.setIdStudentGroup(idSchoolGroup);
+  	studentSchoolGroup.setStudent(new Student());
+  	studentSchoolGroup.setSchoolGroup(new SchoolGroup());
     return studentSchoolGroupDAO.find(studentSchoolGroup);
   }
 
@@ -40,9 +44,8 @@ public class StudentSchoolGroupService {
     return studentSchoolGroupDAO.list();
   }
   
-  public List<StudentSchoolGroup> listWithStudentLoaded(){
+  public List<StudentSchoolGroup> listWithStudentGroupLoaded(){
   	StudentSchoolGroup studentSchoolGroup = new StudentSchoolGroup();
-  	return studentSchoolGroupDAO.listWithStudentLoaded(studentSchoolGroup, new PropriedadesLista());
+  	return studentSchoolGroupDAO.listWithStudentGroupLoaded(studentSchoolGroup, new PropriedadesLista());
   }
-
 }

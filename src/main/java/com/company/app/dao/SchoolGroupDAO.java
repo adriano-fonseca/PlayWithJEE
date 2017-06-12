@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import org.apache.log4j.Logger;
 
 import com.company.app.dao.util.UtilHibernate;
+import com.company.app.infra.DAO;
 import com.company.app.model.SchoolGroup;
 
 

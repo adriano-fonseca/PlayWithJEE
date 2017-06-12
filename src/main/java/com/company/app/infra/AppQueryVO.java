@@ -1,4 +1,4 @@
-package com.company.infra;
+package com.company.app.infra;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,12 +14,12 @@ import com.company.app.dao.util.Ordem;
 import com.company.app.dao.util.PropriedadesLista;
 
 /**
- * Classe imutavel que representa caracteristicas de uma consulta hql. Usada em {@link IseQuery}
+ * Classe imutavel que representa caracteristicas de uma consulta hql. Usada em {@link AppQuery}
  * 
- * @see IseQuery
+ * @see AppQuery
  * @author tales-mattos
  */
-public final class IseQueryVO implements Cloneable {
+public final class AppQueryVO implements Cloneable {
 	
   public static final String ROOT_ALIAS = "ed"; 
   
@@ -188,9 +188,9 @@ public final class IseQueryVO implements Cloneable {
       return this;
     }
     
-    public IseQueryVO build() {
+    public AppQueryVO build() {
     	validateBuilderVO();
-    	return new IseQueryVO(this);
+    	return new AppQueryVO(this);
     }
     
     private void validateBuilderVO() {
@@ -203,7 +203,7 @@ public final class IseQueryVO implements Cloneable {
     
   }
   
-  private IseQueryVO(Builder builder) {
+  private AppQueryVO(Builder builder) {
   	this.builder = builder;
   	this.entity = builder.entity;
   	this.clazzEntity = builder.clazzEntity;

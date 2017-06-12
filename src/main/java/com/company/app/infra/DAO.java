@@ -1,4 +1,4 @@
-package com.company.app.dao;
+package com.company.app.infra;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -13,11 +13,13 @@ import com.company.app.exception.RNOptimisticLockException;
 import com.company.app.exception.RecordNotFoundException;
 import com.company.app.model.BaseBean;
 
+
 public class DAO<Bean extends BaseBean<? extends Serializable>> {
 
   private EntityManager em;
 
   private Class<Bean>   className;
+  protected AppQuery<Bean> BD;
 
   protected void init(EntityManager em, Class<Bean> className) {
     this.em = em;
@@ -92,9 +94,10 @@ public class DAO<Bean extends BaseBean<? extends Serializable>> {
     }
     return msg;
   }
-
-  public Bean find(Bean t) {
-    Bean entityReturned = this.em.find(className, t.getId());
+  
+  public Bean find(Bean ed) {
+  	//return find(new IseQueryVO.Builder(ed).build());
+    Bean entityReturned = this.em.find(className, ed.getId());
     HashMap<String, String> msg = null;
     if (entityReturned == null) {
       msg = new HashMap<String, String>();

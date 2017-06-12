@@ -1,10 +1,12 @@
-package com.company.infra;
+package com.company.app.infra;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NonUniqueResultException;
 
 import org.apache.commons.logging.Log;
@@ -14,6 +16,10 @@ import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.proxy.LazyInitializer;
 
 import com.company.app.dao.util.PropriedadesLista;
+import com.company.app.dao.util.UtilDAO;
+import com.company.app.exception.DAOException;
+import com.company.app.exception.RNOptimisticLockException;
+import com.company.app.exception.RecordNotFoundException;
 import com.company.app.model.BaseBean;
 
 
@@ -30,7 +36,8 @@ public abstract class RNImpl<ED extends BaseBean<? extends Serializable>> implem
   private final Log log = LogFactory.getLog(getClass());
   
   private EntityManager em;
-  protected IseQuery<ED> iseBD;
+  protected AppQuery<ED> BD;
+  private Class<ED>   className;
   
   /**
    * Esse m�todo deve ser invocado no m�todo PostConstruct da RNImpl
@@ -38,20 +45,29 @@ public abstract class RNImpl<ED extends BaseBean<? extends Serializable>> implem
    */
   protected void init(EntityManager em) {
     this.em = em;
-    this.iseBD = new IseQuery<ED>(em);    
+    this.BD = new AppQuery<ED>(em);    
   }
   
 	@Override
 	public ED find(ED ed) {
-		return find(new IseQueryVO.Builder(ed).build());
+	  	ED entityReturned = find(new AppQueryVO.Builder(ed).build());
+	    HashMap<String, String> msg = null;
+	    if (entityReturned == null) {
+	      msg = new HashMap<String, String>();
+	      msg.put("message", "Record not found!");
+	      if (msg != null) {
+	        throw new RecordNotFoundException(msg);
+	      }
+	    }
+	    return entityReturned;
 	}
 
 	@Override
-  public ED find(IseQueryVO iseQuery) {
+  public ED find(AppQueryVO iseQuery) {
     long i = System.currentTimeMillis();
     if (iseQuery.isCount())
     	iseQuery = iseQuery.getBuilder().count(false).build();
-    List<ED> list = iseBD.list(iseQuery);
+    List<ED> list = BD.list(iseQuery);
     long f = System.currentTimeMillis();
     if (log.isDebugEnabled()) log.debug("*** [ED find(ED ed, IseQueryVO<ED> iseQuery)] " + (f-i) + " ms.");
     if (list == null || list.isEmpty())
@@ -63,31 +79,31 @@ public abstract class RNImpl<ED extends BaseBean<? extends Serializable>> implem
   }
   
 	@Override
-  public ED find(IseQueryVO.Builder iseQueryBuilder) {
+  public ED find(AppQueryVO.Builder iseQueryBuilder) {
   	return find(iseQueryBuilder.build());
   }
 	
 	@Override
 	public List<ED> list(ED ed) {
-		return list(new IseQueryVO.Builder(ed).build());
+		return list(new AppQueryVO.Builder(ed).build());
 	}
 
 	@Override
 	public List<ED> listDetached(ED ed) {
-		return list(new IseQueryVO.Builder(ed).detachedState(true).build());
+		return list(new AppQueryVO.Builder(ed).detachedState(true).build());
 	}
 
 	@Override
 	public List<ED> list(ED ed, PropriedadesLista pl) {
-		return list(new IseQueryVO.Builder(ed).propList(pl).build());
+		return list(new AppQueryVO.Builder(ed).propList(pl).build());
 	}
   
   @Override
-  public List<ED> list(IseQueryVO iseQuery) {
+  public List<ED> list(AppQueryVO iseQuery) {
     long i = System.currentTimeMillis();
     if (iseQuery.isCount())
     	iseQuery = iseQuery.getBuilder().count(false).build();
-    List<ED> list =  iseBD.list(iseQuery);
+    List<ED> list =  BD.list(iseQuery);
     int j = 0; for (ED edItem : list) {
       list.set(j++, hibernateProxy2Impl(edItem));
     }
@@ -97,24 +113,24 @@ public abstract class RNImpl<ED extends BaseBean<? extends Serializable>> implem
   }
 
   @Override
-  public List<ED> list(IseQueryVO.Builder iseQueryBuilder) {
+  public List<ED> list(AppQueryVO.Builder iseQueryBuilder) {
   	return list(iseQueryBuilder.build());
   }
 
   @Override
   public long count(ED ed) {
-  	return count(new IseQueryVO.Builder(ed)
+  	return count(new AppQueryVO.Builder(ed)
   																	.count(true)
   																	.fetchJoinInNotNullProperty(false)
   																	.build());
   }
   
   @Override
-  public long count(IseQueryVO iseQuery) {
+  public long count(AppQueryVO iseQuery) {
     long i = System.currentTimeMillis();
     if (!iseQuery.isCount())
     	iseQuery = iseQuery.getBuilder().count(true).build();
-    Number count = iseBD.count(iseQuery);
+    Number count = BD.count(iseQuery);
     long f = System.currentTimeMillis();
     if (log.isDebugEnabled()) log.debug("*** [Number count(ED ed, IseQueryVO<ED> iseQuery)] executou em: " + (f-i) + " ms.");
     return count == null ? 0L : count.longValue();
@@ -122,7 +138,7 @@ public abstract class RNImpl<ED extends BaseBean<? extends Serializable>> implem
   
   
   @Override
-  public long count(IseQueryVO.Builder iseQueryBuilder) {
+  public long count(AppQueryVO.Builder iseQueryBuilder) {
   	return count(iseQueryBuilder.build());
   }
   
@@ -166,5 +182,74 @@ public abstract class RNImpl<ED extends BaseBean<? extends Serializable>> implem
 		}
 		return ((BaseBean<?>) edProxy).getId();
 	}
-  
+	
+	 public ED add(ED t) {
+	    if (em.contains(t)) {
+	      throw new RuntimeException("Trying add an object already menaged.");
+	    }
+	    em.persist(t);
+	    em.flush();
+	    return t;
+	  }
+
+	  public ED change(ED t) {
+	    HashMap<String, String> msg = null;
+	    try {
+	    	ED queryBean = find(t);
+	      if (queryBean == null) {
+	        msg = new HashMap<String, String>();
+	        msg.put("message", "Record not found!");
+	        throw new RecordNotFoundException(msg);
+	      }
+	    } catch (DAOException e) {
+	      msg.put("message", "Record not found!");
+	      throw new RecordNotFoundException(msg);
+	    }
+
+	    ED managed = em.merge(t);
+	    if (UtilDAO.isOpenJpa(em)) {
+	      UtilDAO.forcaMergeNull(t, managed);
+	    }
+	    em.flush();
+	    return managed;
+	  }
+
+	  @SuppressWarnings("unchecked")
+	  public List<ED> list() {
+	    return em.createQuery("select t from " + className.getName() + " t").getResultList();
+	  }
+
+	  @SuppressWarnings("unchecked")
+	  public HashMap<String, String> remove(ED t) {
+	    Object conteudoPk = t.getId();
+	    HashMap<String, String> msg = null;
+	    
+	    try {
+	    	ED entityFind = (ED) em.find(t.getClass(), conteudoPk);
+	      if(entityFind==null){
+	    	  msg = new HashMap<String, String>();
+	    	  msg.put("message","Record not found.");
+	          if (msg != null) {
+	            throw new RecordNotFoundException(msg);
+	          }
+	      }
+	      em.remove(entityFind);
+	      try {
+	        em.flush();
+	        msg = new HashMap<String, String>();
+	        msg.put("message", "Record removed!");
+	      } catch (NullPointerException e) {
+	        // see forum
+	        // http://www.eclipse.org/forums/index.php/m/799970/#msg_799970
+	        throw new RNOptimisticLockException();
+	      }
+	    } catch (EntityNotFoundException e) {
+	        msg.put("message","Record not found.");
+	      if (msg != null) {
+	        throw new RecordNotFoundException(msg);
+	      }
+	    }
+	    return msg;
+	  }
+	  
 }

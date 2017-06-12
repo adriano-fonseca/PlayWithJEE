@@ -30,7 +30,7 @@ public class StudentSchoolGroupResource {
 
 	@GET
 	@Path("{idStudentSchoolGroup}")
-	public Response find(@HeaderParam("idUser") String idUser, @HeaderParam("passUser") String password, @PathParam("idSchoolGroup") Long idSchoolGroup) {
+	public Response find(@HeaderParam("idUser") String idUser, @HeaderParam("passUser") String password, @PathParam("idStudentSchoolGroup") Long idSchoolGroup) {
 		helperService.validateUser(idUser, password);
 		StudentSchoolGroup schoolGroup = studentSchoolGroupService.find(idSchoolGroup);
 		return Response.ok().entity(schoolGroup).build();
@@ -39,13 +39,13 @@ public class StudentSchoolGroupResource {
 	@GET
 	public Response list(@HeaderParam("idUser") String idUser, @HeaderParam("passUser") String password) {
 		helperService.validateUser(idUser, password);
-		List<StudentSchoolGroup> studentSchoolGroups = studentSchoolGroupService.listWithStudentLoaded();
+		List<StudentSchoolGroup> studentSchoolGroups = studentSchoolGroupService.listWithStudentGroupLoaded();
 		return Response.ok().entity(studentSchoolGroups).build();
 	}
 
 	@DELETE
 	@Path("{idStudentSchoolGroup}")
-	public Response remove(@HeaderParam("idUser") String idUser, @HeaderParam("passUser") String password, @PathParam("idStudent") Long idSchoolGroup) {
+	public Response remove(@HeaderParam("idUser") String idUser, @HeaderParam("passUser") String password, @PathParam("idStudentSchoolGroup") Long idSchoolGroup) {
 		helperService.validateUser(idUser, password);
 		return Response.ok(studentSchoolGroupService.remove(idSchoolGroup)).build();
 	}

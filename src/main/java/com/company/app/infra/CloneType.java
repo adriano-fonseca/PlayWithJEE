@@ -1,4 +1,4 @@
-package com.company.infra;
+package com.company.app.infra;
 
 /**
  * 

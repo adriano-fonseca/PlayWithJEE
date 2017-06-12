@@ -1,4 +1,4 @@
-package com.company.infra;
+package com.company.app.infra;
 
 import java.io.Serializable;
 import java.util.List;
@@ -40,14 +40,14 @@ public abstract interface RN<ED extends BaseBean<? extends Serializable>> {
    * @param iseQuery
    * @return
    */
-  public abstract ED find(IseQueryVO iseQuery);
+  public abstract ED find(AppQueryVO iseQuery);
   
   /**
    * 
    * @param iseQueryBuilder
    * @return
    */
-  public abstract ED find(IseQueryVO.Builder iseQueryBuilder);
+  public abstract ED find(AppQueryVO.Builder iseQueryBuilder);
   
   /**
    * Monta uma consulta a partir dor atributos do ED.
@@ -79,7 +79,7 @@ public abstract interface RN<ED extends BaseBean<? extends Serializable>> {
    * @param iseQuery
    * @return lista de objetos
    */
-  public abstract List<ED> list(IseQueryVO iseQuery);
+  public abstract List<ED> list(AppQueryVO iseQuery);
  
   /**
    * Monta uma consulta a partir do ed informado e do objeto iseQueryVO
@@ -88,7 +88,7 @@ public abstract interface RN<ED extends BaseBean<? extends Serializable>> {
    * @param iseQuery
    * @return lista de objetos
    */
-  public abstract List<ED> list(IseQueryVO.Builder iseQueryBuilder);
+  public abstract List<ED> list(AppQueryVO.Builder iseQueryBuilder);
   
   /**
    * Monta uma consulta, a partir do ED informado, para obter uma contagem
@@ -105,13 +105,13 @@ public abstract interface RN<ED extends BaseBean<? extends Serializable>> {
    * @param iseQuery
    * @return count
    */
-  public abstract long count(IseQueryVO iseQuery);
+  public abstract long count(AppQueryVO iseQuery);
   
   /**
    * 
    * @param iseQueryBuilder
    * @return
    */
-  public abstract long count(IseQueryVO.Builder iseQueryBuilder);
+  public abstract long count(AppQueryVO.Builder iseQueryBuilder);
   
 }

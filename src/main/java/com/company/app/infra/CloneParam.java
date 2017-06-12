@@ -1,4 +1,4 @@
-package com.company.infra;
+package com.company.app.infra;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;

@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import com.company.app.infra.DAO;
 import com.company.app.model.Student;
 
 @Stateless
