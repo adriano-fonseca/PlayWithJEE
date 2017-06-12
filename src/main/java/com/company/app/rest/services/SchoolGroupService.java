@@ -35,7 +35,7 @@ public class SchoolGroupService {
   }
   
   public List<SchoolGroup> list(){
-    return schoolGroupDAO.list();
+    return schoolGroupDAO.list(new SchoolGroup());
   }
 
 }

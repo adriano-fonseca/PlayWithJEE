@@ -35,7 +35,7 @@ public class TeacherService {
   }
   
   public List<Teacher> list(){
-    return teacherDAO.list();
+    return teacherDAO.list(new Teacher());
   }
 
 }

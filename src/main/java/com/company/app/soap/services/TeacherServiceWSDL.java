@@ -40,6 +40,6 @@ public class TeacherServiceWSDL {
   @WebMethod(operationName="getTeacher",exclude=false)
   @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   public List<Teacher> get() { 
-    return teacherDAO.list();
+    return teacherDAO.list(new Teacher());
   }
 }

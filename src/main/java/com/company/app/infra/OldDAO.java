@@ -14,7 +14,7 @@ import com.company.app.exception.RecordNotFoundException;
 import com.company.app.model.BaseBean;
 
 
-public class DAO<Bean extends BaseBean<? extends Serializable>> {
+public class OldDAO<Bean extends BaseBean<? extends Serializable>> {
 
   private EntityManager em;
 

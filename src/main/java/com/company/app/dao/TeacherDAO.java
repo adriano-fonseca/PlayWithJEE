@@ -18,12 +18,12 @@ import org.hibernate.type.StringType;
 import com.company.app.dto.SchoolGroupDTO;
 import com.company.app.dto.StudentDTO;
 import com.company.app.dto.TeacherDTO;
-import com.company.app.infra.DAO;
+import com.company.app.infra.RNImpl;
 import com.company.app.model.Teacher;
 
 
 @Stateless
-public class TeacherDAO extends DAO<Teacher> {
+public class TeacherDAO extends RNImpl<Teacher> {
 	
 	  @SuppressWarnings("unused")
 	  private static final Logger LOGGER = Logger.getLogger(TeacherDAO.class); 
@@ -33,7 +33,7 @@ public class TeacherDAO extends DAO<Teacher> {
 	  
 	  @PostConstruct
 	  public void init() {
-	    super.init(entityManager, Teacher.class);
+	    super.init(entityManager);
 	  }
 	  
   	public TeacherDTO consulta(Teacher professorED){

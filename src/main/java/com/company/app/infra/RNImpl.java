@@ -37,8 +37,7 @@ public abstract class RNImpl<ED extends BaseBean<? extends Serializable>> implem
   
   private EntityManager em;
   protected AppQuery<ED> BD;
-  private Class<ED>   className;
-  
+    
   /**
    * Esse m�todo deve ser invocado no m�todo PostConstruct da RNImpl
    * @param em
@@ -212,11 +211,6 @@ public abstract class RNImpl<ED extends BaseBean<? extends Serializable>> implem
 	    }
 	    em.flush();
 	    return managed;
-	  }
-
-	  @SuppressWarnings("unchecked")
-	  public List<ED> list() {
-	    return em.createQuery("select t from " + className.getName() + " t").getResultList();
 	  }
 
 	  @SuppressWarnings("unchecked")

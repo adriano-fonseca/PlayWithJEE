@@ -41,7 +41,7 @@ public class StudentSchoolGroupService {
   }
   
   public List<StudentSchoolGroup> list(){
-    return studentSchoolGroupDAO.list();
+    return studentSchoolGroupDAO.list(new StudentSchoolGroup());
   }
   
   public List<StudentSchoolGroup> listWithStudentGroupLoaded(){

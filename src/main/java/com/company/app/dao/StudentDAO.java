@@ -7,18 +7,18 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import com.company.app.infra.DAO;
+import com.company.app.infra.RNImpl;
 import com.company.app.model.Student;
 
 @Stateless
-public class StudentDAO extends DAO<Student> {
+public class StudentDAO extends RNImpl<Student> {
 
     @PersistenceContext 
     private EntityManager entityManager;
     
     @PostConstruct
     public void init() {
-      super.init(entityManager,Student.class);
+      super.init(entityManager);
     }
     
     public Student searchByNameWithPositionParameter(String name) {

@@ -64,7 +64,7 @@ public class EjbTest {
 //    return ejbWar;
 //  }
 
-  //  Create deploy from complete .ear of applicarion
+  //  Create deploy from complete .ear of application
   //  @Deployment
   //  public static EnterpriseArchive createDeployment() {
   //    MavenResolverSystem resolver = Maven.resolver();
@@ -140,7 +140,7 @@ public class EjbTest {
     student.setBirthDay(birthDay2);
     studentDAO.add(student2);
 
-    List<Student> list = studentDAO.list();
+    List<Student> list = studentDAO.list(new Student());
     Assert.assertEquals(list.size(), 2);
 
   }
@@ -155,14 +155,14 @@ public class EjbTest {
 
   @Test
   public void shouldFailStudentNotRemoved() {
-    List<Student> list = studentDAO.list();
+    List<Student> list = studentDAO.list(new Student());
     Iterator<Student> it = list.iterator();
 
     while (it.hasNext()) {
       Student student = it.next();
       studentDAO.remove(student);
     }
-    List<Student> list2 = studentDAO.list();
+    List<Student> list2 = studentDAO.list(new Student());
     Assert.assertEquals(list2.size(), 0);
   }
 

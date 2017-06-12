@@ -1,0 +1,523 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Rest Test Github",
+		"_postman_id": "5c468393-ab7e-32a4-224d-51fba632b0f0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SchoolGroups",
+			"description": "",
+			"item": [
+				{
+					"name": "Create SchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schoolGroups/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"nameSchoolGroup\":\"103\",\n \"nomeSerie\": \"3° Ano\",\n \"year\": \"2017\"\t\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update SchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schoolGroups/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idSchoolGroup\": 1,\n  \"nameSchoolGroup\": \"201\",\n  \"idSchool\": null,\n  \"nomeSerie\": \"2° Ano\",\n  \"idTeacher\": null,\n  \"year\": \"2017\",\n  \"teacher\": null,\n  \"school\": null\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Query SchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schoolGroups/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List SchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schoolGroups",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete SchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schoolGroups/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Student",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/students/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Joao ning\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/students/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Adriano Antonio 2\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Query Student",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/students/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List students",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/students",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Student",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/students/3",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "StudentSchoolGroup",
+			"description": "",
+			"item": [
+				{
+					"name": "Create StudentSchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schooStudentSchoolGroup",
+						"method": "POST",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"idClass\": 1,\n \"idStudent\" : 1\t\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List StudentsSchoolGroups",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schooStudentSchoolGroup",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Query StudentSchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schooStudentSchoolGroup/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update StudentSchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schooStudentSchoolGroup/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Adriano Antonio 2\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete StudentSchoolGroup",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/schooStudentSchoolGroup/3",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teacher",
+			"description": "",
+			"item": [
+				{
+					"name": "Update Teacher",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/teachers/2",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Joao Fragoso\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Teacher",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/teachers/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Joao Fragoso\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Teacher",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/teachers/3",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Teachers",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/teachers/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "passUser",
+								"value": "123456",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "idUser",
+								"value": "afonseca",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Query Teacher",
+					"request": {
+						"url": "http://localhost:8080/PlayJavaEE/rest/teachers/2",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -35,7 +35,7 @@ public class StudentService {
   }
   
   public List<Student> list(){
-    return studentDAO.list();
+    return studentDAO.list(new Student());
   }
 
 }
