@@ -57,6 +57,15 @@ public class SchoolGroup extends BaseBean<Long> implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "schoolGroup")
 	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
 
+	public SchoolGroup(Long idSchoolGroup){
+		super();
+		this.idSchoolGroup = idSchoolGroup;
+	}
+	
+	public SchoolGroup(){
+		super();
+	}
+	
 	public Long getIdSchoolGroup() {
 		return idSchoolGroup;
 	}

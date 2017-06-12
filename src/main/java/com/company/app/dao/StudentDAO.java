@@ -38,4 +38,6 @@ public class StudentDAO extends DAO<Student> {
       query.setParameter("name", name);
       return query.getSingleResult();
     }
+    
+    
 }

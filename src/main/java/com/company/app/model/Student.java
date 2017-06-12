@@ -22,8 +22,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Entity
 @Table(name = "STUDENT")
 @JsonIgnoreProperties({ "listaStudentSchoolGroup", "id"})
-public class Student extends BaseBean<Long>
-implements Serializable {
+public class Student extends BaseBean<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +38,23 @@ implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Calendar birthDay;
+	
+	
+	public Student(Long idStudent){
+		super();
+		this.idStudent = idStudent;
+	}
+	
+	public Student(){
+		super();
+	}
+
+	
+	public Student(Long idStudent, String name){
+		super();
+		this.idStudent = idStudent;
+		this.name = name;
+	}
 
 	public String getName() {
 		return name;
