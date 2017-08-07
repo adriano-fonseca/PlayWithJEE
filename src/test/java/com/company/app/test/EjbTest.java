@@ -31,7 +31,7 @@ public class EjbTest {
 
   @Deployment
   public static WebArchive createDeployment() {
-    return ShrinkWrap.create(WebArchive.class).addClass(Type.class).addClass(ResultTransformer.class).addClass(TestSystemProperties.class).addPackages(true, "org.apache.commons.lang3").addPackages(true, "com.company.app.dao").addPackages(true, "com.company.app.model").addPackages(true, "com.company.app.dto").addPackages(true, "com.company.app.exception")
+    return ShrinkWrap.create(WebArchive.class).addClass(Type.class).addClass(ResultTransformer.class).addClass(TestSystemProperties.class).addPackages(true, "org.apache.commons.lang3").addPackages(true, "com.company.app.dao").addPackages(true, "com.company.app.model").addPackages(true, "com.company.app.dto").addPackages(true, "com.company.app.infra").addPackages(true, "com.company.app.exception")
     .addAsResource("h2-test-persistence.xml", "META-INF/persistence.xml");
   }
 
