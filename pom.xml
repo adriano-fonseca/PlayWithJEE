@@ -4,7 +4,7 @@
 
 	<groupId>com.company.app</groupId>
 	<artifactId>PlayWithJavaEE</artifactId>
-	<version>0.0.7</version>
+	<version>0.0.8</version>
 	<packaging>war</packaging>
 
 	<name>PlayWithJavaEE</name>
@@ -170,11 +170,11 @@
 		</dependency>
 
 		<!--liquibase -->
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-			<version>3.5.3</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.liquibase</groupId> -->
+<!-- 			<artifactId>liquibase-core</artifactId> -->
+<!-- 			<version>3.5.3</version> -->
+<!-- 		</dependency> -->
 
 	</dependencies>
 
