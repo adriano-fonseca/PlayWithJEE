@@ -39,7 +39,9 @@ public class Student extends BaseBean<Long> implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar birthDay;
 	
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
+
 	public Student(Long idStudent){
 		super();
 		this.idStudent = idStudent;
@@ -70,17 +72,6 @@ public class Student extends BaseBean<Long> implements Serializable {
 
 	public void setBirthDay(Calendar birthDay) {
 		this.birthDay = birthDay;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
-	private List<StudentSchoolGroup> listaStudentSchoolGroup = new ArrayList<StudentSchoolGroup>();
-
-	public List<StudentSchoolGroup> getListaStudentSchoolGroup() {
-		return listaStudentSchoolGroup;
-	}
-
-	public void setListaStudentSchoolGroup(List<StudentSchoolGroup> listaStudentSchoolGroup) {
-		this.listaStudentSchoolGroup = listaStudentSchoolGroup;
 	}
 
 	public Long getIdStudent() {
