@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.company.app</groupId>
-	<artifactId>PlayWithJavaEE</artifactId>
+	<artifactId>PlayJavaEE</artifactId>
 	<version>0.0.7</version>
 	<packaging>war</packaging>
 
-	<name>PlayWithJavaEE</name>
+	<name>PlayJavaEE</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -161,6 +161,18 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!--Auth0 JWT -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>mvc-auth-commons</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 
 		<!-- Default protocol Servelet no arquilian.xml -->
 		<dependency>
@@ -175,7 +187,6 @@
 			<artifactId>liquibase-core</artifactId>
 			<version>3.5.3</version>
 		</dependency>
-
 	</dependencies>
 
 
@@ -237,7 +248,62 @@
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+                <groupId>com.sebastian-daschner</groupId>
+                <artifactId>jaxrs-analyzer-maven-plugin</artifactId>
+                <version>0.16</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>analyze-jaxrs</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <backend>swagger</backend>
+                    <resourcesDir>PlayJavaEE/apidocs</resourcesDir>
+                    <renderSwaggerTags>true</renderSwaggerTags>
+                    <swaggerTagsPathOffset>0</swaggerTagsPathOffset>
+                </configuration>
+            </plugin>
+			
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											com.sebastian-daschner
+										</groupId>
+										<artifactId>
+											jaxrs-analyzer-maven-plugin
+										</artifactId>
+										<versionRange>
+											[0.16,)
+										</versionRange>
+										<goals>
+											<goal>analyze-jaxrs</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 

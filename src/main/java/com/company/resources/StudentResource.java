@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -37,7 +38,7 @@ public class StudentResource {
   }
   
   @GET
-  public Response list(@HeaderParam("idUser") String idUser, @HeaderParam("passUser") String password) {
+  public Response list(@DefaultValue("") @HeaderParam("idUser") String idUser, @DefaultValue("")  @HeaderParam("passUser") String password) {
     helperService.validateUser(idUser, password);
     List<Student> students = studentService.list();
     return Response.ok().entity(students).build();

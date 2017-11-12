@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-  <display-name>PlayWithJavaEE</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>PlayWithJavaEE</display-name>
+
+	<context-param>
+		<param-name>com.auth0.domain</param-name>
+		<param-value>adriano-fonseca.auth0.com</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>com.auth0.clientId</param-name>
+		<param-value>kTIJRwjkjsxbUX48CSffzavDHkHEDghR</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>com.auth0.clientSecret</param-name>
+		<param-value>GndRgrsb4QNFoNAbAWY29DKaHc_jK9rtxiBKwhYWcZMHvePDhDgZLgMjC9_CddOo</param-value>
+	</context-param>
 </web-app>
