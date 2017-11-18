@@ -25,12 +25,13 @@ public class StudentSchoolGroup extends BaseBean<Long> implements Serializable {
 	@Column(name = "ID_STUDENT_GROUP")
 	private Long idStudentGroup;
 
-	@Column(name = "ID_STUDENT", insertable = false, updatable = false)
-	private Long idStudent;
 
 	@Column(name = "ID_SCHOOLGROUP", insertable = false, updatable = false)
 	private Long idSchoolGroup;
 
+	@Column(name = "ID_STUDENT", insertable = false, updatable = false)
+	private Long idStudent;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_STUDENT")
 	private Student student;
