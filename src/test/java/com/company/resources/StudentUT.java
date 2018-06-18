@@ -1,7 +1,6 @@
 package com.company.resources;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
@@ -10,19 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.company.app.dao.HelperService;
 import com.company.app.dao.StudentDAO;
 import com.company.app.dto.StudentDTO;
 import com.company.app.model.Student;
-import com.company.app.rest.services.StudentService;
 
 @RunWith(PowerMockRunner.class)
 //Static classes need to be prepar before to use 
@@ -68,7 +63,7 @@ public class StudentUT {
   }
   
   @Test
-  public void deveFalharSeTurmaMatriculaPorDisciplina() {
+  public void deveFalharSeStudentNotAdriano() {
     //  create mock
 //    TurmaRN turmaRN = Mockito.mock(TurmaRN.class);
   	 //Mockando find chamado indiretamente por alguns metodos da RN

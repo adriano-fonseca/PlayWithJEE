@@ -1,0 +1,988 @@
+
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.7",
+        "title": "PlayJavaEE"
+    },
+    "host": "",
+    "basePath": "/PlayJavaEE/rest",
+    "schemes": [
+        "http"
+    ],
+    "tags": [
+        {
+            "name": "schooStudentSchoolGroup"
+        },
+        {
+            "name": "schoolGroups"
+        },
+        {
+            "name": "students"
+        },
+        {
+            "name": "teachers"
+        }
+    ],
+    "paths": {
+        "/schooStudentSchoolGroup": {
+            "get": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StudentSchoolGroup"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "schooStudentSchoolGroup"
+                ]
+            },
+            "post": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/StudentSchoolGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/StudentSchoolGroup"
+                        }
+                    }
+                },
+                "tags": [
+                    "schooStudentSchoolGroup"
+                ]
+            }
+        },
+        "/schooStudentSchoolGroup/{idStudentSchoolGroup}": {
+            "get": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idStudentSchoolGroup",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/StudentSchoolGroup"
+                        }
+                    }
+                },
+                "tags": [
+                    "schooStudentSchoolGroup"
+                ]
+            },
+            "put": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idStudentSchoolGroup",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/StudentSchoolGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/DAOException"
+                        }
+                    }
+                },
+                "tags": [
+                    "schooStudentSchoolGroup"
+                ]
+            },
+            "delete": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idStudentSchoolGroup",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "schooStudentSchoolGroup"
+                ]
+            }
+        },
+        "/schoolGroups": {
+            "get": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/SchoolGroup"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "schoolGroups"
+                ]
+            },
+            "post": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SchoolGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/SchoolGroup"
+                        }
+                    }
+                },
+                "tags": [
+                    "schoolGroups"
+                ]
+            }
+        },
+        "/schoolGroups/{idSchoolGroup}": {
+            "get": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idSchoolGroup",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/SchoolGroup"
+                        }
+                    }
+                },
+                "tags": [
+                    "schoolGroups"
+                ]
+            }
+        },
+        "/schoolGroups/{idStudent}": {
+            "put": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idStudent",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SchoolGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/SchoolGroup"
+                        }
+                    }
+                },
+                "tags": [
+                    "schoolGroups"
+                ]
+            },
+            "delete": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idStudent",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "schoolGroups"
+                ]
+            }
+        },
+        "/students": {
+            "get": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": false
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Student"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "students"
+                ]
+            },
+            "post": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Student"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Student"
+                        }
+                    }
+                },
+                "tags": [
+                    "students"
+                ]
+            }
+        },
+        "/students/{idStudent}": {
+            "get": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idStudent",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Student"
+                        }
+                    }
+                },
+                "tags": [
+                    "students"
+                ]
+            },
+            "put": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idStudent",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Student"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Student"
+                        }
+                    }
+                },
+                "tags": [
+                    "students"
+                ]
+            },
+            "delete": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idStudent",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "students"
+                ]
+            }
+        },
+        "/teachers": {
+            "get": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Teacher"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "teachers"
+                ]
+            },
+            "post": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Teacher"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Teacher"
+                        }
+                    }
+                },
+                "tags": [
+                    "teachers"
+                ]
+            }
+        },
+        "/teachers/{idTeacher}": {
+            "get": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idTeacher",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Teacher"
+                        }
+                    }
+                },
+                "tags": [
+                    "teachers"
+                ]
+            },
+            "put": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idTeacher",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Teacher"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Teacher"
+                        }
+                    }
+                },
+                "tags": [
+                    "teachers"
+                ]
+            },
+            "delete": {
+                "consumes": [
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "idTeacher",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "idUser",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "passUser",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                        },
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "teachers"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "DAOException": {
+            "properties": {
+            }
+        },
+        "School": {
+            "properties": {
+                "idSchool": {
+                    "type": "integer"
+                },
+                "listaClassSchool": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SchoolGroup"
+                    }
+                },
+                "nameSchool": {
+                    "type": "string"
+                },
+                "phoneSchool": {
+                    "type": "integer"
+                }
+            }
+        },
+        "SchoolGroup": {
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "idSchool": {
+                    "type": "integer"
+                },
+                "idSchoolGroup": {
+                    "type": "integer"
+                },
+                "idTeacher": {
+                    "type": "integer"
+                },
+                "nameSchoolGroup": {
+                    "type": "string"
+                },
+                "nomeSerie": {
+                    "type": "string"
+                },
+                "school": {
+                    "$ref": "#/definitions/School"
+                },
+                "teacher": {
+                    "$ref": "#/definitions/Teacher"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "Student": {
+            "properties": {
+                "birthDay": {
+                    "type": "object"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "idStudent": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "StudentSchoolGroup": {
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "idSchoolGroup": {
+                    "type": "integer"
+                },
+                "idStudent": {
+                    "type": "integer"
+                },
+                "idStudentGroup": {
+                    "type": "integer"
+                },
+                "schoolGroup": {
+                    "$ref": "#/definitions/SchoolGroup"
+                },
+                "student": {
+                    "$ref": "#/definitions/Student"
+                }
+            }
+        },
+        "Teacher": {
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "idTeacher": {
+                    "type": "integer"
+                },
+                "listaSchoolGroup": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SchoolGroup"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
